@@ -22,7 +22,5 @@ işlemi çalıştırarak hangi branch ta oldpunu kontrol et sonrasında;
 * bu komut sayesinde sadece kendi branch ına gönderim yapmış olursun
 * sonrasında githubdan repona girerek merge işlemlerini yapabilirsin.
 
-
-ok
-
-+naber
+## yapılan değişikliğin çekilmesi işlemi
+- git pull origin main
