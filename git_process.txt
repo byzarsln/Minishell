@@ -21,3 +21,5 @@ işlemi çalıştırarak hangi branch ta oldpunu kontrol et sonrasında;
 - git push -u origin <user>
 * bu komut sayesinde sadece kendi branch ına gönderim yapmış olursun
 * sonrasında githubdan repona girerek merge işlemlerini yapabilirsin.
+
+
