@@ -14,9 +14,5 @@
 
 int	main(int ac, char **av, char **env)
 {
-    (void)av;
-    (void)env;
-    (void)ac;
-    
-    return (0);
+    printf("%d\n %s\n %s\n", ac, av[0], env[0]);
 }
