@@ -6,14 +6,14 @@
 /*   By: ayirmili <ayirmili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 16:06:47 by ayirmili          #+#    #+#             */
-/*   Updated: 2024/10/11 16:07:23 by ayirmili         ###   ########.fr       */
+/*   Updated: 2024/10/11 17:24:37 by ayirmili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "libft/libft.h"
+# include "lib/libft/libft.h"
 # include <fcntl.h>
 # include <stdio.h>
 # include <readline/history.h>
