@@ -1,53 +1,71 @@
 NAME = minishell
-CC = gcc
-CFLAGS = -Wall -Wextra -Werror # -fsanitize=address -g
-M_SRC = minishell.c
-LIBSRC = libft/ft_atoi.c \
-	libft/ft_bzero.c libft/ft_calloc.c libft/ft_isalnum.c \
-	libft/ft_isalpha.c libft/ft_isascii.c libft/ft_isdigit.c \
-	libft/ft_isprint.c libft/ft_memchr.c libft/ft_memcmp.c \
-	libft/ft_memcpy.c libft/ft_memmove.c libft/ft_memset.c \
-	libft/ft_strchr.c libft/ft_strdup.c libft/ft_strlcat.c \
-	libft/ft_strlcpy.c libft/ft_strlen.c libft/ft_strncmp.c \
-	libft/ft_strnstr.c libft/ft_strrchr.c libft/ft_tolower.c \
-	libft/ft_toupper.c libft/ft_substr.c libft/ft_strjoin.c \
-	libft/ft_strtrim.c libft/ft_split.c libft/ft_itoa.c \
-	libft/ft_strmapi.c libft/ft_striteri.c libft/ft_putchar_fd.c \
-	libft/ft_putstr_fd.c libft/ft_putendl_fd.c libft/ft_putnbr_fd.c
 
-SRC = $(M_SRC) $(LIBSRC)
-OBJECTS = $(SRC:.c=.o)
-READLINE = -L./lib/readline/lib -I./lib/readline/include/readline -lreadline -lncurses
-DIR = $(shell echo $(PWD))
-RL = ./lib/readline/lib/libreadline.a
-RM = rm -rf
-LIB = libft.a
+SRC = minishell.c
 
-all: $(NAME)
+CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=address # MallocStackLogging=1
+LIBFT = lib/libft/libft.a
+READLINE = lib/readline/lib/libreadline.a
 
-$(NAME): $(RL) $(SRC)
-		$(CC) $(CFLAGS) -o $(NAME) $(SRC) $(READLINE)
+RM = @rm -rf
+CC = @cc
 
-$(RL):
-			@echo "Downloading the readline library"
-			@curl -O https://ftp.gnu.org/gnu/readline/readline-8.2-rc1.tar.gz
-			@tar -xvf readline-8.2-rc1.tar.gz
-			@$(RM) readline-8.2-rc1.tar.gz
-			@cd readline-8.2-rc1 && ./configure --prefix=$(DIR)/lib/readline && make && make install
-			@$(RM) readline-8.2-rc1
-			@echo "Download completed"
+OBJS = $(SRC:.c=.o)
 
-rclean:
-	@$(RM) lib/readline
-	@echo "Readline removed"
+RESET = \033[0m
+BOLD = \033[1m
+YELLOW = \033[33m
+GREEN = \033[32m
+RED = \033[31m
 
-clean:
-	$(RM) $(OBJECTS)
+all: $(READLINE) $(NAME) $(LIBFT)
+
+$(READLINE):
+	@echo "$(BOLD)$(YELLOW)[DOWNLOADING READLINE...]$(RESET)"
+	@curl -O https://ftp.gnu.org/gnu/readline/readline-8.2.tar.gz
+	@tar -xvf readline-8.2.tar.gz
+	@$(RM) readline-8.2.tar.gz
+	@cd readline-8.2 && ./configure --prefix=${PWD}/lib/readline
+	@cd readline-8.2 && make install
+	@$(RM) readline-8.2
+
+$(NAME): $(LIBFT) $(OBJS)
+	@echo "$(BOLD)$(YELLOW)[COMPILING...]$(RESET)"
+	@sleep 0.5
+	@$(CC) -o $(NAME) $(OBJS) $(CFLAGS) $(LIBFT) -I${PWD}/lib/readline/include/ -lreadline -L${PWD}/lib/readline/lib
+	@clear
+	@echo "$(BOLD)$(YELLOW)[COMPILATION COMPLETE]$(RESET)"
+
+$(LIBFT):
+	@echo "$(BOLD)$(GREEN)[BUILDING LIBFT...]$(RESET)"
+	@sleep 0.5
+	@make -C lib/libft
+
+
+
+%.o: %.c
+	@$(CC) $(CFLAGS) -c $< -o $@ -I${PWD}/lib/readline/include/
 
 fclean: clean
-		$(RM) $(LIB)
-		$(RM) $(NAME)
+	@echo "$(BOLD)$(RED)[DELETING...]$(RESET)"
+	@sleep 0.5
+	@$(RM) $(NAME)
+	@make -C lib/libft/ fclean
+	@echo "$(BOLD)$(RED)[ALL FİLE DELETED]$(RESET)"
+
+clean:
+	@echo "$(BOLD)$(YELLOW)[DELETING OBJECTS...]$(RESET)"
+	@sleep 0.5
+	@$(RM) $(OBJS)
+	@make -C lib/libft/ clean
+	@echo "$(BOLD)$(RED)[ALL OBJECTS DELETED]$(RESET)"
 
 re: fclean all
 
-.PHONY: all clean fclean re push
+test: 
+	cd minishell_tester && ./tester > results.txt
+	cd minishell_tester && ./tester ./manual_tests/heredoc >> results.txt
+	cd minishell_tester && ./tester ./manual_tests/mandatory >> results.txt
+	cd minishell_tester && ./tester ./manual_tests/not_mandatory >> results.txt
+	cd minishell_tester && ./tester ./manual_tests/signals >> results.txt
+
+.PHONY: all fclean clean re
