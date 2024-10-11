@@ -24,3 +24,5 @@ işlemi çalıştırarak hangi branch ta oldpunu kontrol et sonrasında;
 
 
 ok
+
++naber
