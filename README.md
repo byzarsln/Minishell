@@ -46,6 +46,7 @@
 ├── Makefile
 ├── minishell.h
 ├── main.c
+├── free.c
 ```
 
 ---
@@ -53,7 +54,7 @@
 # Yapılacak listelemesi
 ### Parser'i Oluştur (Girdiyi Ayrıştırmak)
 - Bu aşamada komutları ve argümanları anlamlı parçalara (tokens) ayırma yapılacak.
-- örn. `ls -l` komutunu `l`s ve `-l` olarak ayır
+- örn. `ls -l` komutunu `ls` ve `-l` olarak ayır
 
 ### Executor (Komutları Çalıştırmak)
 - Komutları ayrıştırdıktan sonra bu komutları çalıştırmak lazım.
@@ -65,7 +66,7 @@
 
 ### Built-in
 - Yerleşik komutlar (built-in commands) `cd`, `exit`, `echo`, `env`, `export`, `pwd`, `unset` komutlari bu asamada incelenecek.
-- Önemli olan nokta bu komutlar `execve()` ile değil shell tarafından çalıştırılır. Ayrıca işlenmesi gereklş yani.
+- Önemli olan nokta bu komutlar `execve()` ile değil shell tarafından çalıştırılır. Ayrıca işlenmesi gerekli yani.
 
 ### Redirection ve Pipe Mekanizması
 - Bir sonraki aşama, redirection (giriş/çıkış yönlendirme) ve pipe işlemlerini eklemek olacaktır. Bu adımda kullanıcıların > ve | gibi operatörleri kullanması sağlayanacak. Bu operatörler ile dosyaya yazma ve pipe işlemleri yapılacak.
