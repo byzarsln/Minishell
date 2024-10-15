@@ -1,27 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: beyza <beyza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/11 15:36:36 by ayirmili          #+#    #+#             */
-/*   Updated: 2024/10/14 18:56:25 by beyza            ###   ########.fr       */
+/*   Created: 2024/10/14 18:50:09 by beyza             #+#    #+#             */
+/*   Updated: 2024/10/14 19:00:43 by beyza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(int ac, char **av, char **env)
+void	exit_shell(t_data *data, int exno)
 {
-    t_data *data;
-
-    data = (t_data *)malloc(sizeof(t_data));
-    if(!data)
-        return(0);
-    if(ac != 1)
-    {
-        printf("%s", "This program does not accept arguments\n");
-        exit_shell(NULL, EXIT_FAILURE);
-    } 
+	if (data)
+	{
+		if (data->cmd && data->cmd->io_fds)
+			close_fds(data->cmd, true);
+		free_data(data, true);
+	}
+	exit(exno);
 }
