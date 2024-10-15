@@ -1,6 +1,7 @@
 NAME = minishell
 
-SRC = minishell.c
+SRC = minishell.c \
+free/free.c
 
 CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=address # MallocStackLogging=1
 LIBFT = lib/libft/libft.a
