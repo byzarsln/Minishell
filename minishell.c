@@ -6,7 +6,7 @@
 /*   By: beyza <beyza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 15:36:36 by ayirmili          #+#    #+#             */
-/*   Updated: 2024/10/15 23:00:19 by beyza            ###   ########.fr       */
+/*   Updated: 2024/10/15 23:25:57 by beyza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,15 @@ int check_init_data(t_data *data, char **env)
     return(1);
 }
 
+void mini_interactive(t_data *data)
+{
+    while(1)
+    {
+        set_signals(); //TODO
+        data->user_input = readline(PROMPT);
+    }
+}
+
 int	main(int ac, char **av, char **env)
 {
     t_data data;
@@ -144,4 +153,6 @@ int	main(int ac, char **av, char **env)
     }
     if(!check_init_data(&data, env))
         exit_shell(NULL, EXIT_FAILURE);
+    mini_interactive(&data);
+    printf("%s", av[0]);
 }

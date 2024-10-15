@@ -6,7 +6,7 @@
 /*   By: beyza <beyza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 16:06:47 by ayirmili          #+#    #+#             */
-/*   Updated: 2024/10/15 22:37:44 by beyza            ###   ########.fr       */
+/*   Updated: 2024/10/15 23:22:18 by beyza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@
 #  ifndef PATH_MAX
 #   define PATH_MAX 4096
 #  endif
+
+# define PROMPT "\001\e[45m\002>>> \001\e[0m\e[33m\002 Minishell 🤠>$ \001\e[0m\002"
 
 # define SUCCESS 0
 # define FAILURE 1
