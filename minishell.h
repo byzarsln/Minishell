@@ -6,7 +6,7 @@
 /*   By: beyza <beyza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 16:06:47 by ayirmili          #+#    #+#             */
-/*   Updated: 2024/10/14 19:00:36 by beyza            ###   ########.fr       */
+/*   Updated: 2024/10/15 22:37:44 by beyza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,16 @@
 # include <unistd.h>
 # include <errno.h>
 
+//linux ve MAC te bir dosya yolunun max uzunluğu
+#  ifndef PATH_MAX
+#   define PATH_MAX 4096
+#  endif
 
 # define SUCCESS 0
 # define FAILURE 1
+
+
+extern int	g_last_exit_code; //global değişken
 
 
 typedef struct	s_token
@@ -72,34 +79,12 @@ typedef struct s_data
 	t_command	*cmd;
 	char		*user_input;
 	char		**env;
+	char		*work_direc;
+	char		*old_work_direc;
+	pid_t		pid;
 }				t_data;
 
 
-
-// typedef struct	s_env
-// {
-// 	char			*value;
-// 	struct s_env	*next;
-// }				t_env;
-
-// typedef struct	s_mini
-// {
-// 	t_token			*start;
-// 	t_env			*env;
-// 	t_env			*secret_env;
-// 	int				in;
-// 	int				out;
-// 	int				fdin;
-// 	int				fdout;
-// 	int				pipein;
-// 	int				pipeout;
-// 	int				pid;
-// 	int				charge;
-// 	int				parent;
-// 	int				last;
-// 	int				ret;
-// 	int				exit;
-// 	int				no_exec;
-// }				t_mini;
+void	exit_shell(t_data *data, int exno);
 
 #endif
