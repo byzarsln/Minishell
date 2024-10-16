@@ -6,7 +6,7 @@
 /*   By: beyza <beyza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 15:36:36 by ayirmili          #+#    #+#             */
-/*   Updated: 2024/10/15 23:25:57 by beyza            ###   ########.fr       */
+/*   Updated: 2024/10/16 16:25:35 by beyza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,12 +131,41 @@ int check_init_data(t_data *data, char **env)
     g_last_exit_code = 0;
     return(1);
 }
+void	sigquit_ign(void)
+{
+	struct sigaction	signl;
+
+	ft_memset(&signl, 0, sizeof(signl));
+	signl.sa_handler = SIG_IGN;//signali ignore etmek için işlemciyi (handler) tanımlıyoruz.
+	sigaction(SIGQUIT, &signl, NULL);//sigquit gördüğünde signal ignore etme işlemini yapıyoruz. 
+}
+void	sigint_reset(int signal_no)
+{
+    //(void)signal_no kullanıyoruz çünkü sinyal işleme fonksiyonları (signal handler), sistem tarafından çağrıldığında bir sinyal numarası alır ve bu numarayı alacak şekilde tasarlanmalıdır.
+	(void)signal_no;
+	write(1, "\n", 1);
+	rl_on_new_line();//readlinedan satır başına dönmek için
+	rl_replace_line("", 0);//readlinedan mevcut girdi satırını boş satıra değiştiriyoruz
+	rl_redisplay(); //promtu(girdi satırını) yeniden display ediyoruz. kullanıcı yazabilsin diye.
+}
+
+void	set_signals(void)
+{
+	struct sigaction	signl;//struct tanımlanmasının sebebi sinyal işleme fonksiyonlarında esneklik sağlamak ve sinyal işleme davranışını ayrıntılı olarak kontrol edebilmek için
+	sigquit_ign();
+    handle_sigquit(); //TODO for Ctrl + D
+	ft_memset(&signl, 0, sizeof(signl));
+	signl.sa_handler = &sigint_reset; //signal geldiğinde bu koda gitmesini sağlıyoruz.
+	sigaction(SIGINT, &signl, NULL);//sigint signali geldiğinde koddaki işlemi yapmasını sağlıyoruz.
+
+    
+}
 
 void mini_interactive(t_data *data)
 {
     while(1)
     {
-        set_signals(); //TODO
+        set_signals();
         data->user_input = readline(PROMPT);
     }
 }
