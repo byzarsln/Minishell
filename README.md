@@ -65,7 +65,7 @@
     * `execve()` ile dış komutları çalıştırmayı dene. Örneğin, kullanıcı ls yazarsa ls komutunu işletim sisteminde çalıştır ve sonucunu döndür.
 
 ### Built-in
-- Yerleşik komutlar (built-in commands) `cd`, `exit`, `echo`, `env`, `export`, `pwd`, `unset` komutlari bu asamada incelenecek.
+- Yerleşik komutlar (built-in commands) `cd`, `exit`, `echo`, `env`, `export`, `pwd`, `unset`, `exit` (numeric control)  komutlari bu asamada incelenecek.
 - Önemli olan nokta bu komutlar `execve()` ile değil shell tarafından çalıştırılır. Ayrıca işlenmesi gerekli yani.
 
 ### Redirection ve Pipe Mekanizması
