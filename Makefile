@@ -1,7 +1,8 @@
 NAME = minishell
 
 SRC = minishell.c \
-free/free.c src/signals/signals.c initialize/initialize.c
+free/free.c src/signals/signals.c initialize/initialize.c src/parser/parser.c src/parser/tokenizer.c \
+src/parser/tokenizer_utils.c
 
 CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=address # MallocStackLogging=1
 LIBFT = lib/libft/libft.a

@@ -6,7 +6,7 @@
 /*   By: ayirmili <ayirmili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 15:36:36 by ayirmili          #+#    #+#             */
-/*   Updated: 2024/10/17 14:13:32 by ayirmili         ###   ########.fr       */
+/*   Updated: 2024/10/17 15:25:09 by ayirmili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ void	mini_interactive(t_data *data)
 		}
 		if (*data->user_input)
 		{
-			printf("%s\n", data->user_input);
+            add_history(data->user_input);
+			parse_input(data);
 		}
 	}
 }

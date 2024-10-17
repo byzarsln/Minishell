@@ -6,7 +6,7 @@
 /*   By: ayirmili <ayirmili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 16:06:47 by ayirmili          #+#    #+#             */
-/*   Updated: 2024/10/17 14:15:01 by ayirmili         ###   ########.fr       */
+/*   Updated: 2024/10/17 17:01:39 by ayirmili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@
 # include "lib/libft/libft.h"
 # include <errno.h>
 # include <fcntl.h>
+# include <stdio.h>
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <signal.h>
 # include <stdbool.h>
-# include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
 # include <sys/ioctl.h>
@@ -36,15 +36,31 @@
 
 # define PROMPT "\e[33m\002 Minishell 🤠>$ \001\e[0m\002"
 
-# define SUCCESS 0
-# define FAILURE 1
+# define SUCCESS 1
+# define FAILURE 0
 
-extern int	g_last_exit_code; // global değişken
+# define DEFAULT 10
+# define SQUOTE 11
+# define DQUOTE 12
+
+# define SPACES 13
+# define WORD 14
+# define VAR 15
+# define PIPE 16
+# define INPUT 17
+# define TRUNC 18
+# define HEREDOC 19
+# define APPEND 20
+# define END 21
+
+extern int g_last_exit_code; // global değişken
 
 typedef struct s_token
 {
+	char				*value_backup;
 	char				*value;
 	int					type;
+	int					status;	
 	struct s_token		*prev;
 	struct s_token		*next;
 }						t_token;
@@ -96,5 +112,10 @@ int						check_init_data(t_data *data, char **env);
 int						init_work_direc(t_data *data);
 int						env_find_index(char **env, char *var);
 char					*env_find_value(char **env, char *var);
+
+// parser functions
+int						parse_input(t_data *data);
+int						tokenizer(t_data *data, char *user_input);
+int						save_word(t_token **token_lst, char *user_input, int index, int start);
 
 #endif
