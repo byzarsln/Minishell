@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayirmili <ayirmili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: beyarsla <beyarsla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 14:55:27 by ayirmili          #+#    #+#             */
-/*   Updated: 2024/10/17 17:12:33 by ayirmili         ###   ########.fr       */
+/*   Updated: 2024/10/18 18:43:07 by beyarsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void    lst_add_back_token(t_token **token_lst, t_token *created_token)
         last_token->next = created_token;
         created_token->prev = last_token;
     }
-    printf("created_token->value: %s\n", created_token->value);
 }
 
 t_token *lst_new_token(char *value, char *value_backup, int type, int status)
@@ -44,8 +43,37 @@ t_token *lst_new_token(char *value, char *value_backup, int type, int status)
     created_token->type = type;
     created_token->status = status;
     created_token->next = NULL;
-    printf("created_token->value: %s\n", created_token->value);
+    printf("%s\n", created_token->value);
     return (created_token);
+}
+
+int save_separator(t_token **token_lst, char *user_input, int index, int type)
+{
+    int i;
+    char    *seperator;
+
+    i = 0;
+    if (type == HEREDOC || type == APPEND)
+    {
+        seperator = malloc(sizeof(char) * 3);
+        if (!seperator)
+            return(FAILURE);
+        while(i < 2)
+            seperator[i++] = user_input[index++];
+        seperator[i] = '\0';
+        lst_add_back_token(token_lst, lst_new_token(seperator, NULL, type, DEFAULT));
+    }
+    else
+    {
+        seperator = malloc(sizeof(char) * 2);
+        if(!seperator)
+            return(FAILURE);
+        while(i < 1)
+            seperator[i++] = user_input[index++];
+        seperator[i] = '\0';
+        lst_add_back_token(token_lst, lst_new_token(seperator, NULL, type, DEFAULT));
+    }
+    return(FAILURE);
 }
 
 int	save_word(t_token **token_lst, char *user_input, int index, int start)
@@ -64,7 +92,7 @@ int	save_word(t_token **token_lst, char *user_input, int index, int start)
 		i++;
 	}
 	word[i] = '\0';
-    printf("word: %s\n", word);
+    // printf("word: %s\n", word);
 	lst_add_back_token(token_lst, lst_new_token(word, ft_strdup(word), WORD,
 			DEFAULT));
 	return (0);

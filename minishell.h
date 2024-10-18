@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayirmili <ayirmili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: beyarsla <beyarsla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 16:06:47 by ayirmili          #+#    #+#             */
-/*   Updated: 2024/10/17 17:01:39 by ayirmili         ###   ########.fr       */
+/*   Updated: 2024/10/18 18:28:52 by beyarsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,12 @@
 # define SPACES 13
 # define WORD 14
 # define VAR 15
-# define PIPE 16
-# define INPUT 17
-# define TRUNC 18
-# define HEREDOC 19
-# define APPEND 20
-# define END 21
+# define PIPE 16 // |
+# define INPUT 17 // <
+# define TRUNC 18 // >
+# define HEREDOC 19 // <<
+# define APPEND 20 // >>
+# define END 21 // \0
 
 extern int g_last_exit_code; // global değişken
 
@@ -117,5 +117,7 @@ char					*env_find_value(char **env, char *var);
 int						parse_input(t_data *data);
 int						tokenizer(t_data *data, char *user_input);
 int						save_word(t_token **token_lst, char *user_input, int index, int start);
+int						save_separator(t_token **token_lst, char *user_input, int index, int type);
+void    				status_error(int status);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayirmili <ayirmili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: beyarsla <beyarsla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 15:36:36 by ayirmili          #+#    #+#             */
-/*   Updated: 2024/10/17 15:25:09 by ayirmili         ###   ########.fr       */
+/*   Updated: 2024/10/18 18:40:05 by beyarsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ void	mini_interactive(t_data *data)
 		}
 		if (*data->user_input)
 		{
-            add_history(data->user_input);
-			parse_input(data);
+            add_history(data->user_input); //TODO kontrol et
+			parse_input(data); // TODO if koşuluna alınacak
 		}
 	}
 }

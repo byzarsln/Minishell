@@ -3,14 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayirmili <ayirmili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: beyarsla <beyarsla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 18:50:09 by beyza             #+#    #+#             */
-/*   Updated: 2024/10/17 14:05:38 by ayirmili         ###   ########.fr       */
+/*   Updated: 2024/10/18 18:32:29 by beyarsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+void    status_error(int status)
+{
+    if (status == DQUOTE)
+        perror("unexpected EOF while looking for matching: ""\n");
+    else if (status == SQUOTE)
+        perror("unexpected EOF while looking for matching: ''\n");
+    perror("syntax error: unexpected EOF");
+}
 
 void	free_tmp(void *tmp)
 {

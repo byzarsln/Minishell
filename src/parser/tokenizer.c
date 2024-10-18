@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayirmili <ayirmili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: beyarsla <beyarsla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 15:37:51 by ayirmili          #+#    #+#             */
-/*   Updated: 2024/10/17 17:17:50 by ayirmili         ###   ########.fr       */
+/*   Updated: 2024/10/18 18:35:41 by beyarsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ int seperator_type(char *user_input, int i)
 		return (0);
 }
 
-
 int save_word_or_sep(int *i, char *user_input, int start, t_data *data)
 {
     int type;
@@ -57,17 +56,15 @@ int save_word_or_sep(int *i, char *user_input, int start, t_data *data)
     {
         if ((*i) != 0 && seperator_type(user_input, (*i) - 1) == 0)
 			save_word(&data->token, user_input, (*i), start);
-        // if (type == APPEND || type == HEREDOC || type == PIPE // TODO : BURADAN DEVAM EDILECEK.
-		// 	|| type == INPUT || type == TRUNC || type == END)
-		// {
-		// 	save_separator(&data->token, user_input, (*i), type);
-		// 	if (type == APPEND || type == HEREDOC)
-		// 		(*i)++;
-		// }
-        
+        if (type == APPEND || type == HEREDOC || type == PIPE
+			|| type == INPUT || type == TRUNC || type == END)
+		{
+			save_separator(&data->token, user_input, (*i), type);
+			if (type == APPEND || type == HEREDOC)
+				(*i)++;
+		}
         start = (*i) + 1;
     }
-
     return (start);
 }
 
@@ -88,6 +85,10 @@ int tokenizer(t_data *data, char *user_input)
         if (status == DEFAULT)
 			start = save_word_or_sep(&i, user_input, start, data);
     }
-
+    if (status != DEFAULT)
+    {
+        status_error(status);
+        return(FAILURE);
+    }
     return (SUCCESS);
 }
