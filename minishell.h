@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beyarsla <beyarsla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: beyza <beyza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 16:06:47 by ayirmili          #+#    #+#             */
-/*   Updated: 2024/10/18 18:28:52 by beyarsla         ###   ########.fr       */
+/*   Updated: 2024/10/19 13:54:59 by beyza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@
 #  define PATH_MAX 4096
 # endif
 
-# define PROMPT "\e[33m\002 Minishell 🤠>$ \001\e[0m\002"
+# define PROMPT "\001\e[45m\002>>> \001\e[0m\e[33m\002 Minishell 🤠>$ \001\e[0m\002"
 
 # define SUCCESS 1
 # define FAILURE 0
