@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beyza <beyza@student.42.fr>                +#+  +:+       +#+        */
+/*   By: beyarsla <beyarsla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 16:06:47 by ayirmili          #+#    #+#             */
-/*   Updated: 2024/10/19 13:54:59 by beyza            ###   ########.fr       */
+/*   Updated: 2024/10/20 13:47:46 by beyarsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ void					set_signals(void);
 // free.c
 void					free_tmp(void *tmp);
 void					exit_shell(t_data *data, int exno);
+void    				status_error(int status);
 
 // initialize functions
 int						check_init_data(t_data *data, char **env);
@@ -118,6 +119,6 @@ int						parse_input(t_data *data);
 int						tokenizer(t_data *data, char *user_input);
 int						save_word(t_token **token_lst, char *user_input, int index, int start);
 int						save_separator(t_token **token_lst, char *user_input, int index, int type);
-void    				status_error(int status);
+int						check_var(t_token **token_lst);
 
 #endif
