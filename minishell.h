@@ -6,7 +6,7 @@
 /*   By: beyarsla <beyarsla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 16:06:47 by ayirmili          #+#    #+#             */
-/*   Updated: 2024/10/20 13:47:46 by beyarsla         ###   ########.fr       */
+/*   Updated: 2024/10/21 17:07:05 by beyarsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,9 @@ void					set_signals(void);
 void					free_tmp(void *tmp);
 void					exit_shell(t_data *data, int exno);
 void    				status_error(int status);
+void					free_data(t_data *data, bool clear_history);
+void					free_pointr(void *pointr);
+void					free_mult_str(char **str);
 
 // initialize functions
 int						check_init_data(t_data *data, char **env);

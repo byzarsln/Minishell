@@ -6,11 +6,41 @@
 /*   By: beyarsla <beyarsla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 18:50:09 by beyza             #+#    #+#             */
-/*   Updated: 2024/10/18 18:32:29 by beyarsla         ###   ########.fr       */
+/*   Updated: 2024/10/21 18:33:12 by beyarsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+void	free_pointr(void *pointr)
+{
+	if (pointr != NULL)
+	{
+		free(pointr);
+		pointr = NULL;
+	}
+}
+
+void	free_mult_str(char **str)
+{
+	int	i;
+
+	i = 0;
+	if (str)
+	{
+		while (str[i])
+        {
+            if (str[i])
+            {
+                free_pointr(str[i]);
+                str[i] = NULL;
+            }
+            i++;
+        }
+        free(str);
+        str = NULL;
+	}
+}
 
 void    status_error(int status)
 {

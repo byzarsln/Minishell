@@ -6,7 +6,7 @@
 /*   By: beyarsla <beyarsla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 15:36:36 by ayirmili          #+#    #+#             */
-/*   Updated: 2024/10/20 13:21:50 by beyarsla         ###   ########.fr       */
+/*   Updated: 2024/10/21 19:17:00 by beyarsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,11 @@ void	mini_interactive(t_data *data)
 		if (*data->user_input)
 		{
             add_history(data->user_input);
-			parse_input(data); // TODO if koşuluna alınacak
+			if(parse_input(data) == FAILURE)
+				g_last_exit_code = 1;
+			else
+				;
+			free_data(data,false);
 		}
 	}
 }
