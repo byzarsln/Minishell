@@ -48,7 +48,7 @@ BONUS = \
 OBJECT = $(SOURCE:.c=.o)
 BONUSOBJECT = $(BONUS:.c=.o)
 ARCH = ar rc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS =# -Wall -Wextra -Werror
 COMPILE = $(CC) $(CFLAGS) -c
 
 $(NAME): $(OBJECT)
