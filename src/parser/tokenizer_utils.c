@@ -6,7 +6,7 @@
 /*   By: beyarsla <beyarsla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 14:55:27 by ayirmili          #+#    #+#             */
-/*   Updated: 2024/10/18 18:43:07 by beyarsla         ###   ########.fr       */
+/*   Updated: 2024/10/21 19:45:42 by beyarsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ t_token *lst_new_token(char *value, char *value_backup, int type, int status)
     created_token->type = type;
     created_token->status = status;
     created_token->next = NULL;
+    created_token->prev = NULL;
     printf("%s\n", created_token->value);
     return (created_token);
 }

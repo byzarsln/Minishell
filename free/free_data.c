@@ -6,7 +6,7 @@
 /*   By: beyarsla <beyarsla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 15:34:51 by beyarsla          #+#    #+#             */
-/*   Updated: 2024/10/21 19:20:07 by beyarsla         ###   ########.fr       */
+/*   Updated: 2024/10/21 19:47:16 by beyarsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,21 +27,21 @@ void	lst_delone_cmd(t_command *cmd, void (*del)(void *))
 
 void	lst_delone_token(t_token *token_node, void (*del)(void *))
 {
-	if (del && token_node && token_node->value)
+	if (token_node && token_node->value)
 	{
-		(*del)(token_node->value);
+		free(token_node->value);
 		token_node->value = NULL;
 	}
-	if (del && token_node && token_node->value_backup)
+	if (token_node && token_node->value_backup)
 	{
-		(*del)(token_node->value_backup);
+		free(token_node->value_backup);
 		token_node->value_backup = NULL;
 	}
 	if (token_node->prev)
 		token_node->prev->next = token_node->next;
 	if (token_node->next)
 		token_node->next->prev = token_node->prev;
-	free_pointr(token_node);
+	free(token_node);
 }
 
 void	lst_clear_token(t_token **token_lst, void (*del)(void *))
@@ -53,7 +53,7 @@ void	lst_clear_token(t_token **token_lst, void (*del)(void *))
 	while (*token_lst)
 	{
 		tmp = (*token_lst)->next;
-		lst_delone_token(*token_lst, del);
+			lst_delone_token(*token_lst, del);
 		*token_lst = tmp;
 	}
 	*token_lst = NULL;
@@ -76,8 +76,8 @@ void	lst_clear_cmd(t_command **command, void (*del)(void *))
 
 void	free_data(t_data *data, bool clear_history)
 {
-	// if (data && data->token) //TODO
-	// 	lst_clear_token(&data->token, &free_pointr);
+	if (data && data->token) //TODO
+		lst_clear_token(&data->token, &free_pointr);
 	if (data && data->cmd)
 		lst_clear_cmd(&data->cmd, &free_pointr);
 	if (data && data->user_input)
