@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beyarsla <beyarsla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayirmili <ayirmili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 18:50:09 by beyza             #+#    #+#             */
-/*   Updated: 2024/10/21 19:30:40 by beyarsla         ###   ########.fr       */
+/*   Updated: 2024/10/24 13:07:04 by ayirmili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,11 @@
 
 void	free_pointr(void *pointr)
 {
-	free(pointr);
+	if (pointr != NULL)
+	{
+		free(pointr);
+		pointr = NULL;
+	}
 }
 
 void	free_mult_str(char **str)

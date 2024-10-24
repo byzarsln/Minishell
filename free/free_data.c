@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beyarsla <beyarsla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayirmili <ayirmili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 15:34:51 by beyarsla          #+#    #+#             */
-/*   Updated: 2024/10/21 19:47:16 by beyarsla         ###   ########.fr       */
+/*   Updated: 2024/10/24 11:59:45 by ayirmili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	lst_delone_cmd(t_command *cmd, void (*del)(void *))
 		free_mult_str(cmd->args);
 	if (del && cmd && cmd->pipe_fd)
 		(*del)(cmd->pipe_fd);
-	// if (del && cmd && cmd->io_fds) //TODO
+	// if (del && cmd && cmd->io_fds) // TODO
 	// 	free_pointr(cmd->io_fds);
 	(*del)(cmd);
 }

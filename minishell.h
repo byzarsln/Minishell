@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beyarsla <beyarsla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayirmili <ayirmili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 16:06:47 by ayirmili          #+#    #+#             */
-/*   Updated: 2024/10/21 17:07:05 by beyarsla         ###   ########.fr       */
+/*   Updated: 2024/10/24 13:05:12 by ayirmili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,8 @@ typedef struct s_token
 	char				*value_backup;
 	char				*value;
 	int					type;
-	int					status;	
+	int					status;
+	bool				var_exists;
 	struct s_token		*prev;
 	struct s_token		*next;
 }						t_token;
@@ -118,10 +119,14 @@ int						env_find_index(char **env, char *var);
 char					*env_find_value(char **env, char *var);
 
 // parser functions
+char					*identify_var(char *str);
 int						parse_input(t_data *data);
 int						tokenizer(t_data *data, char *user_input);
 int						save_word(t_token **token_lst, char *user_input, int index, int start);
 int						save_separator(t_token **token_lst, char *user_input, int index, int type);
 int						check_var(t_token **token_lst);
+void					handle_dollar(t_data *data, t_token **token_lst);
+int						var_exists(t_data *data, char *var);
+char					*search_env_var(t_data *data, char *var);
 
 #endif

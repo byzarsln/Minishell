@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer_utils2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beyarsla <beyarsla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayirmili <ayirmili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 13:26:10 by beyarsla          #+#    #+#             */
-/*   Updated: 2024/10/20 18:18:41 by beyarsla         ###   ########.fr       */
+/*   Updated: 2024/10/24 11:59:02 by ayirmili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ static void	variable_cont(t_token **temp_lst)
         if((*temp_lst)->value[i] == '$')
         {
             if((*temp_lst)->prev && (*temp_lst)->prev->type == HEREDOC)
-                break; //eğer heredoctan sonrası dollarsa string olarak algılıyor.
-            (*temp_lst)->type = VAR; //dolları atadı.
+                break;
+            (*temp_lst)->type = VAR;
             return ;
         }
         i++;
