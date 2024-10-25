@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beyarsla <beyarsla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayirmili <ayirmili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 16:24:52 by beyarsla          #+#    #+#             */
-/*   Updated: 2024/10/25 17:07:11 by beyarsla         ###   ########.fr       */
+/*   Updated: 2024/10/25 23:06:45 by ayirmili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,25 +36,6 @@ t_command	*lst_new_cmd(bool value)
 	return (new_node);
 }
 
-void	lst_add_back_cmd(t_command **alst, t_command *new_node)
-{
-	t_command	*start;
-
-	start = *alst;
-	if (start == NULL)
-	{
-		*alst = new_node;
-		return ;
-	}
-	if (alst && *alst && new_node)
-	{
-		while (start->next != NULL)
-			start = start->next;
-		start->next = new_node;
-		new_node->prev = start;
-	}
-}
-
 void	parse_cmd_word(t_command **cmd, t_token **token_lst)
 {
 	t_token		*temp;
@@ -79,6 +60,26 @@ void	parse_cmd_word(t_command **cmd, t_token **token_lst)
 	*token_lst = temp;
 }
 
+static void	prep_no_arg_commands(t_data *data)
+{
+	t_command	*cmd;
+
+	if (!data || !data->cmd)
+		return ;
+	cmd = data->cmd;
+	while (cmd && cmd->command)
+	{
+		if (!cmd->args)
+		{
+			cmd->args = malloc(sizeof * cmd->args * 2);
+			cmd->args[0] = ft_strdup(cmd->command);
+			cmd->args[1] = NULL;
+		}
+		cmd = cmd->next;
+	}
+	cmd = lst_last_cmd(data->cmd);
+}
+
 void	create_commands(t_data *data, t_token *token)
 {
 	t_token	*tmp;
@@ -92,10 +93,10 @@ void	create_commands(t_data *data, t_token *token)
 			lst_add_back_cmd(&data->cmd, lst_new_cmd(false));
 		if (tmp->type == WORD || tmp->type == VAR)
 			parse_cmd_word(&data->cmd, &tmp);
-		// else if (tmp->type == INPUT)
-		// 	parse_cmd_input(&data->cmd, &tmp);
-		// else if (tmp->type == TRUNC)
-		// 	parse_cmd_trunc(&data->cmd, &tmp);
+		else if (tmp->type == INPUT)
+			parse_cmd_input(&data->cmd, &tmp);
+		else if (tmp->type == TRUNC)
+			parse_cmd_trunc(&data->cmd, &tmp);
 		// else if (tmp->type == HEREDOC)
 		// 	parse_cmd_heredoc(data, &data->cmd, &tmp);
 		// else if (tmp->type == APPEND)
@@ -105,5 +106,5 @@ void	create_commands(t_data *data, t_token *token)
 		// else if (tmp->type == END)
 		// 	break ;
 	}
-	// prep_no_arg_commands(data);
+	prep_no_arg_commands(data);
 }

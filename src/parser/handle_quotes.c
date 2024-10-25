@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   handle_quotes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beyarsla <beyarsla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayirmili <ayirmili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 14:18:14 by ayirmili          #+#    #+#             */
-/*   Updated: 2024/10/25 18:07:42 by beyarsla         ###   ########.fr       */
+/*   Updated: 2024/10/25 22:05:06 by ayirmili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-static int is_any_quotes(char *str)
+static int	is_any_quotes(char *str)
 {
 	int	i;
 
@@ -42,8 +42,8 @@ static int	count_len(char *str, int count, int i)
 			i++;
 			continue ;
 		}
-		else if ((str[i] == '\'' && status == SQUOTE)
-			|| (str[i] == '\"' && status == DQUOTE))
+		else if ((str[i] == '\'' && status == SQUOTE) || (str[i] == '\"'
+				&& status == DQUOTE))
 		{
 			status = DEFAULT;
 			i++;
@@ -86,15 +86,15 @@ int	remove_quotes(t_token **token_node)
 
 int	handle_quotes(t_data *data)
 {
-    t_token	*temp;
+	t_token	*temp;
 
-    temp = data->token;
-    while (temp)
-    {
-        if (is_any_quotes(temp->value) == SUCCESS
-            && (!temp->prev || (temp->prev && temp->prev->type != HEREDOC)))
-            remove_quotes(&temp);
-        temp = temp->next;
-    }
-    return (0);
+	temp = data->token;
+	while (temp)
+	{
+		if (is_any_quotes(temp->value) == SUCCESS && (!temp->prev || (temp->prev
+					&& temp->prev->type != HEREDOC)))
+			remove_quotes(&temp);
+		temp = temp->next;
+	}
+	return (0);
 }

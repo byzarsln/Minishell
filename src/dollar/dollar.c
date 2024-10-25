@@ -6,7 +6,7 @@
 /*   By: ayirmili <ayirmili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 14:06:41 by ayirmili          #+#    #+#             */
-/*   Updated: 2024/10/25 14:14:51 by ayirmili         ###   ########.fr       */
+/*   Updated: 2024/10/25 22:04:08 by ayirmili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ static int	var_between_quotes(char *str, int i)
 	}
 	return (FAILURE);
 }
+
 static char	*find_var(t_token *token, char *str, t_data *data)
 {
 	char	*value;
@@ -75,11 +76,12 @@ void	handle_dollar(t_data *data, t_token **token_lst)
 			while (tmp->value[i])
 			{
 				control_dlr_quote(&tmp, tmp->value[i]);
-				if (tmp->value[i] == '$' && is_next_char_a_sep(tmp->value[i
+				if (tmp->value[i] == '$' && is_next_char_a_sep(tmp->value[i \
 						+ 1]) == FAILURE && var_between_quotes(tmp->value,
 						i) == FAILURE && (tmp->status == DEFAULT
 						|| tmp->status == DQUOTE))
-					handle_replace_var(&tmp, find_var(tmp, tmp->value + i, data), i);
+					handle_replace_var(&tmp, find_var(tmp, tmp->value + i,
+							data), i);
 				else
 					i++;
 			}

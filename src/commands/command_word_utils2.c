@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   command_word_utils2.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beyarsla <beyarsla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayirmili <ayirmili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 18:51:14 by beyarsla          #+#    #+#             */
-/*   Updated: 2024/10/25 18:57:19 by beyarsla         ###   ########.fr       */
+/*   Updated: 2024/10/25 21:59:40 by ayirmili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-static char	**copy_default_in_new_tab(
-	int len, char **new_tab, t_command *last_cmd, t_token **tk_node)
+static char	**copy_default_in_new_tab(int len, char **new_tab,
+		t_command *last_cmd, t_token **tk_node)
 {
 	int		i;
 	t_token	*temp;
@@ -35,8 +35,8 @@ static char	**copy_default_in_new_tab(
 	return (new_tab);
 }
 
-char	**copy_in_new_tab(int len, char **new_tab,
-			t_command *last_cmd, t_token *tmp)
+char	**copy_in_new_tab(int len, char **new_tab, t_command *last_cmd,
+		t_token *tmp)
 {
 	int	i;
 

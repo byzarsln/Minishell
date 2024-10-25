@@ -3,26 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beyarsla <beyarsla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayirmili <ayirmili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 14:52:56 by ayirmili          #+#    #+#             */
-/*   Updated: 2024/10/25 16:24:41 by beyarsla         ###   ########.fr       */
+/*   Updated: 2024/10/25 22:05:13 by ayirmili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-int parse_input(t_data *data)
+int	parse_input(t_data *data)
 {
-    // parser_error_control(data);
-    if (tokenizer(data, data->user_input) == FAILURE)
-        return (FAILURE);
-    if (data->token->type == END)
-        return (FAILURE);
-    if (check_var(&data->token) == FAILURE)
+	// parser_error_control(data);
+	if (tokenizer(data, data->user_input) == FAILURE)
 		return (FAILURE);
-    handle_dollar(data, &data->token);
-    handle_quotes(data);
+	if (data->token->type == END)
+		return (FAILURE);
+	if (check_var(&data->token) == FAILURE)
+		return (FAILURE);
+	handle_dollar(data, &data->token);
+	handle_quotes(data);
 	create_commands(data, data->token);
-    return(SUCCESS);
+	return (SUCCESS);
 }

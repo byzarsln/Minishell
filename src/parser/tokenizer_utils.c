@@ -3,77 +3,77 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beyarsla <beyarsla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayirmili <ayirmili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 14:55:27 by ayirmili          #+#    #+#             */
-/*   Updated: 2024/10/25 17:12:55 by beyarsla         ###   ########.fr       */
+/*   Updated: 2024/10/25 22:06:55 by ayirmili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void    lst_add_back_token(t_token **token_lst, t_token *created_token)
+void	lst_add_back_token(t_token **token_lst, t_token *created_token)
 {
-    t_token	*last_token;
+	t_token	*last_token;
 
-    last_token = *token_lst;
-    if (!*token_lst)
-    {
-        *token_lst = created_token;
-        return ;
-    }
-    if (token_lst && *token_lst && created_token)
-    {
-        while (last_token->next != NULL)
-            last_token = last_token->next;
-        last_token->next = created_token;
-        created_token->prev = last_token;
-    }
+	last_token = *token_lst;
+	if (!*token_lst)
+	{
+		*token_lst = created_token;
+		return ;
+	}
+	if (token_lst && *token_lst && created_token)
+	{
+		while (last_token->next != NULL)
+			last_token = last_token->next;
+		last_token->next = created_token;
+		created_token->prev = last_token;
+	}
 }
 
-t_token *lst_new_token(char *value, char *value_backup, int type, int status)
+t_token	*lst_new_token(char *value, char *value_backup, int type, int status)
 {
-    t_token	*created_token;
+	t_token	*created_token;
 
-    created_token = malloc(sizeof(t_token));
-    if (!created_token)
-        return (NULL);
-    created_token->value = value;
-    created_token->value_backup = value_backup;
-    created_token->type = type;
-    created_token->status = status;
-    created_token->next = NULL;
-    created_token->prev = NULL;
-    return (created_token);
+	created_token = malloc(sizeof(t_token));
+	if (!created_token)
+		return (NULL);
+	created_token->value = value;
+	created_token->value_backup = value_backup;
+	created_token->type = type;
+	created_token->status = status;
+	created_token->next = NULL;
+	created_token->prev = NULL;
+	return (created_token);
 }
 
-int save_separator(t_token **token_lst, char *user_input, int index, int type)
+int	save_separator(t_token **token_lst, char *user_input, int index, int type)
 {
-    int i;
-    char    *seperator;
+	int		i;
+	char	*seperator;
 
-    i = 0;
-    if (type == HEREDOC || type == APPEND)
-    {
-        seperator = malloc(sizeof(char) * 3);
-        if (!seperator)
-            return(FAILURE);
-        while(i < 2)
-            seperator[i++] = user_input[index++];
-        seperator[i] = '\0';
-        lst_add_back_token(token_lst, lst_new_token(seperator, NULL, type, DEFAULT));
-    }
-    else
-    {
-        seperator = malloc(sizeof(char) * 2);
-        if(!seperator)
-            return(FAILURE);
-        while(i < 1)
-            seperator[i++] = user_input[index++];
-        seperator[i] = '\0';
-        lst_add_back_token(token_lst, lst_new_token(seperator, NULL, type, DEFAULT));
-    }
-    return(FAILURE);
+	i = 0;
+	if (type == HEREDOC || type == APPEND)
+	{
+		seperator = malloc(sizeof(char) * 3);
+		if (!seperator)
+			return (FAILURE);
+		while (i < 2)
+			seperator[i++] = user_input[index++];
+		seperator[i] = '\0';
+		lst_add_back_token(token_lst, lst_new_token(seperator, NULL, type, DEFAULT));
+	}
+	else
+	{
+		seperator = malloc(sizeof(char) * 2);
+		if (!seperator)
+			return (FAILURE);
+		while (i < 1)
+			seperator[i++] = user_input[index++];
+		seperator[i] = '\0';
+		lst_add_back_token(token_lst, lst_new_token(seperator, NULL, type, DEFAULT));
+	}
+	return (FAILURE);
 }
 
 int	save_word(t_token **token_lst, char *user_input, int index, int start)
@@ -92,7 +92,7 @@ int	save_word(t_token **token_lst, char *user_input, int index, int start)
 		i++;
 	}
 	word[i] = '\0';
-    // printf("word: %s\n", word);
+	// printf("word: %s\n", word);
 	lst_add_back_token(token_lst, lst_new_token(word, ft_strdup(word), WORD,
 			DEFAULT));
 	return (0);
