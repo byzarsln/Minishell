@@ -1,12 +1,13 @@
 NAME = minishell
 
 SRC = minishell.c \
-free/free.c free/free_data.c src/signals/signals.c initialize/initialize.c \
+free/free.c free/free_utils.c free/free_data.c src/signals/signals.c initialize/initialize.c \
 src/parser/parser.c src/parser/tokenizer.c src/parser/tokenizer_utils.c src/parser/tokenizer_utils2.c \
 src/parser/handle_quotes.c src/dollar/dollar.c src/dollar/dollar_utils.c src/dollar/dollar_utils2.c \
-src/parser/handle_quotes2.c
+src/parser/handle_quotes2.c src/commands/command.c src/commands/command_word.c src/commands/command_word_utils.c \
+src/commands/command_word_utils2.c
 
-CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address # MallocStackLogging=1
+CFLAGS = #-Wall -Wextra -Werror -g -fsanitize=address # MallocStackLogging=1
 LIBFT = lib/libft/libft.a
 READLINE = lib/readline/lib/libreadline.a
 
