@@ -6,7 +6,7 @@
 /*   By: ayirmili <ayirmili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 16:06:47 by ayirmili          #+#    #+#             */
-/*   Updated: 2024/10/24 13:05:12 by ayirmili         ###   ########.fr       */
+/*   Updated: 2024/10/25 15:00:15 by ayirmili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ typedef struct s_token
 	int					type;
 	int					status;
 	bool				var_exists;
+	bool				join;
 	struct s_token		*prev;
 	struct s_token		*next;
 }						t_token;
@@ -119,14 +120,20 @@ int						env_find_index(char **env, char *var);
 char					*env_find_value(char **env, char *var);
 
 // parser functions
+char					*search_env_var(t_data *data, char *var);
 char					*identify_var(char *str);
 int						parse_input(t_data *data);
 int						tokenizer(t_data *data, char *user_input);
 int						save_word(t_token **token_lst, char *user_input, int index, int start);
 int						save_separator(t_token **token_lst, char *user_input, int index, int type);
 int						check_var(t_token **token_lst);
-void					handle_dollar(t_data *data, t_token **token_lst);
+int						var_length(char *str);
 int						var_exists(t_data *data, char *var);
-char					*search_env_var(t_data *data, char *var);
+int						handle_replace_var(t_token **token_node, char *var_value, int index);
+void					handle_dollar(t_data *data, t_token **token_lst);
+void					change_status_to_quote(t_token **token_node, int *i);
+int						handle_quotes(t_data *data);
+int						if_quotes_and_default(t_token **token_node, int i);
+int						change_back_to_default(t_token **token_node, int *i);
 
 #endif
