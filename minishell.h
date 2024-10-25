@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beyarsla <beyarsla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayirmili <ayirmili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 16:06:47 by ayirmili          #+#    #+#             */
-/*   Updated: 2024/10/25 18:58:47 by beyarsla         ###   ########.fr       */
+/*   Updated: 2024/10/25 23:06:33 by ayirmili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
 #  define PATH_MAX 4096
 # endif
 
+# define HEREDOC_NAME "/tmp/.minishell_heredoc_"
 # define PROMPT "\001\e[45m\002>>> \001\e[0m\e[33m\002 Minishell 🤠>$ \001\e[0m\002"
 
 # define SUCCESS 1
@@ -153,5 +154,16 @@ char					**copy_in_new_tab(int len, char **new_tab, t_command *last_cmd, t_token
 int						add_args_default_mode(t_token **token_node, t_command *last_cmd);
 int						create_args_default_mode(t_token **token_node, t_command *last_cmd);
 char					*join_vars(t_token **token_node);
+void					lst_add_back_cmd(t_command **alst, t_command *new_node);
+void					parse_cmd_input(t_command **last_cmd, t_token **token_lst);
+void					parse_cmd_trunc(t_command **last_cmd, t_token **token_lst);
+void					open_outfile_trunc(t_io_fds *io, char *file, char *var_filename);
+
+// file functions
+void					init_io(t_command *cmd);
+void					open_infile(t_io_fds *io, char *file, char *original_filename);
+
+// error functions
+int						errmsg_cmd(char *command, char *detail, char *error_message, int error_nb);
 
 #endif
