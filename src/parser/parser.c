@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayirmili <ayirmili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: beyarsla <beyarsla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 14:52:56 by ayirmili          #+#    #+#             */
-/*   Updated: 2024/10/25 15:11:50 by ayirmili         ###   ########.fr       */
+/*   Updated: 2024/10/25 16:24:41 by beyarsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,6 @@ int parse_input(t_data *data)
 		return (FAILURE);
     handle_dollar(data, &data->token);
     handle_quotes(data);
-	// create_commands(data, data->token); // TODO Buradan devam edilecek.
+	create_commands(data, data->token);
     return(SUCCESS);
 }

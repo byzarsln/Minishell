@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_quotes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayirmili <ayirmili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: beyarsla <beyarsla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 14:18:14 by ayirmili          #+#    #+#             */
-/*   Updated: 2024/10/25 15:09:24 by ayirmili         ###   ########.fr       */
+/*   Updated: 2024/10/25 18:07:42 by beyarsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ int	remove_quotes(t_token **token_node)
 		new_line[j++] = (*token_node)->value[i++];
 	}
 	new_line[j] = '\0';
-    printf("%s\n", new_line);
 	free_pointr((*token_node)->value);
 	(*token_node)->value = new_line;
 	(*token_node)->join = true;

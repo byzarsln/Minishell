@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayirmili <ayirmili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: beyarsla <beyarsla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 16:06:47 by ayirmili          #+#    #+#             */
-/*   Updated: 2024/10/25 15:00:15 by ayirmili         ###   ########.fr       */
+/*   Updated: 2024/10/25 18:58:47 by beyarsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,9 @@ void    				status_error(int status);
 void					free_data(t_data *data, bool clear_history);
 void					free_pointr(void *pointr);
 void					free_mult_str(char **str);
+void					free_str_tab(char **tab);
+void					lst_clear_token(t_token **token_lst, void (*del)(void *));
+void					lst_delone_token(t_token *token_node, void (*del)(void *));
 
 // initialize functions
 int						check_init_data(t_data *data, char **env);
@@ -132,8 +135,23 @@ int						var_exists(t_data *data, char *var);
 int						handle_replace_var(t_token **token_node, char *var_value, int index);
 void					handle_dollar(t_data *data, t_token **token_lst);
 void					change_status_to_quote(t_token **token_node, int *i);
+void					lst_add_back_token(t_token **token_lst, t_token *created_token);
 int						handle_quotes(t_data *data);
 int						if_quotes_and_default(t_token **token_node, int i);
 int						change_back_to_default(t_token **token_node, int *i);
+t_token					*lst_new_token(char *value, char *value_backup, int type, int status);
+
+//commands functions
+t_command				*lst_last_cmd(t_command *cmd);
+void					split_var_cmd_token(t_command *last_cmd, char *cmd_str);
+void					create_commands(t_data *data, t_token *token);
+bool					contains_space(char *str);
+int						fill_args(t_token **token_node, t_command *last_cmd);
+int						create_args_echo_mode(t_token **token_node, t_command *last_cmd);
+int						add_args_echo_mode(t_token **token_node, t_command *last_cmd);
+char					**copy_in_new_tab(int len, char **new_tab, t_command *last_cmd, t_token *tmp);
+int						add_args_default_mode(t_token **token_node, t_command *last_cmd);
+int						create_args_default_mode(t_token **token_node, t_command *last_cmd);
+char					*join_vars(t_token **token_node);
 
 #endif

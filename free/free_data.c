@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayirmili <ayirmili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: beyarsla <beyarsla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 15:34:51 by beyarsla          #+#    #+#             */
-/*   Updated: 2024/10/24 11:59:45 by ayirmili         ###   ########.fr       */
+/*   Updated: 2024/10/25 16:56:58 by beyarsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	lst_delone_cmd(t_command *cmd, void (*del)(void *))
 	(*del)(cmd);
 }
 
-void	lst_delone_token(t_token *token_node, void (*del)(void *))
+void	lst_delone_token(t_token *token_node, void (*del)(void *)) // TODO
 {
 	if (token_node && token_node->value)
 	{
@@ -76,7 +76,7 @@ void	lst_clear_cmd(t_command **command, void (*del)(void *))
 
 void	free_data(t_data *data, bool clear_history)
 {
-	if (data && data->token) //TODO
+	if (data && data->token)
 		lst_clear_token(&data->token, &free_pointr);
 	if (data && data->cmd)
 		lst_clear_cmd(&data->cmd, &free_pointr);
