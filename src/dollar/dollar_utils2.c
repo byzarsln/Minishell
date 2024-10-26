@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   dollar_utils.c                                     :+:      :+:    :+:   */
+/*   dollar_utils2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayirmili <ayirmili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: beyza <beyza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 14:00:49 by ayirmili          #+#    #+#             */
-/*   Updated: 2024/10/25 14:00:52 by ayirmili         ###   ########.fr       */
+/*   Updated: 2024/10/27 00:43:57 by beyza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ static char	*generate_token_string(char *oldstr, char *var_value,
 	return (new_str);
 }
 
-static char	*erase_and_replace(t_token **token_list, char *str, char *var_value,
+char	*erase_and_replace(t_token **token_list, char *str, char *var_value,
 		int index)
 {
 	char	*newstr;

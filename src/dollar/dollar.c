@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   dollar.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayirmili <ayirmili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: beyza <beyza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 14:06:41 by ayirmili          #+#    #+#             */
-/*   Updated: 2024/10/25 22:04:08 by ayirmili         ###   ########.fr       */
+/*   Updated: 2024/10/27 00:37:27 by beyza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-static void	control_dlr_quote(t_token **token_node, char c)
+void	control_dlr_quote(t_token **token_node, char c)
 {
 	if (c == '\'' && (*token_node)->status == DEFAULT)
 		(*token_node)->status = SQUOTE;
@@ -24,7 +24,7 @@ static void	control_dlr_quote(t_token **token_node, char c)
 		(*token_node)->status = DEFAULT;
 }
 
-static int	is_next_char_a_sep(char c)
+int	is_next_char_a_sep(char c)
 {
 	if (c == '$' || c == ' ' || c == '=' || c == '\0')
 		return (SUCCESS);
@@ -32,7 +32,7 @@ static int	is_next_char_a_sep(char c)
 		return (FAILURE);
 }
 
-static int	var_between_quotes(char *str, int i)
+int	var_between_quotes(char *str, int i)
 {
 	if (i > 0)
 	{

@@ -6,7 +6,7 @@ src/parser/parser.c src/parser/tokenizer.c src/parser/tokenizer_utils.c src/pars
 src/parser/handle_quotes.c src/dollar/dollar.c src/dollar/dollar_utils.c src/dollar/dollar_utils2.c \
 src/parser/handle_quotes2.c src/commands/command.c src/commands/command_word.c src/commands/command_word_utils.c \
 src/commands/command_word_utils2.c src/commands/create_command.c src/commands/create_command_utils.c \
-src/errors/error.c
+src/errors/error.c src/commands/command_heredoc.c src/commands/command_heredoc2.c src/commands/command_heredoc3.c
 
 CFLAGS = # -Wall -Wextra -Werror -g -fsanitize=address # MallocStackLogging=1
 LIBFT = lib/libft/libft.a

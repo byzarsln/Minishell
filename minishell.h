@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayirmili <ayirmili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: beyza <beyza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 16:06:47 by ayirmili          #+#    #+#             */
-/*   Updated: 2024/10/25 23:06:33 by ayirmili         ###   ########.fr       */
+/*   Updated: 2024/10/27 00:48:12 by beyza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,11 +153,18 @@ int						add_args_echo_mode(t_token **token_node, t_command *last_cmd);
 char					**copy_in_new_tab(int len, char **new_tab, t_command *last_cmd, t_token *tmp);
 int						add_args_default_mode(t_token **token_node, t_command *last_cmd);
 int						create_args_default_mode(t_token **token_node, t_command *last_cmd);
+int						remove_old_file_ref(t_io_fds *io, bool infile);
+int						is_next_char_a_sep(char c);
+int						var_between_quotes(char *str, int i);
+int						evaluate_heredoc_line(t_data *data, char **line, t_io_fds *io, bool *return_status);
 char					*join_vars(t_token **token_node);
+char					*erase_and_replace(t_token **token_list, char *str, char *var_value, int index);
+char					*make_str_from_tab(char **tab);
 void					lst_add_back_cmd(t_command **alst, t_command *new_node);
 void					parse_cmd_input(t_command **last_cmd, t_token **token_lst);
 void					parse_cmd_trunc(t_command **last_cmd, t_token **token_lst);
 void					open_outfile_trunc(t_io_fds *io, char *file, char *var_filename);
+void					parse_cmd_heredoc(t_data *data, t_command **last_cmd, t_token **token_lst);
 
 // file functions
 void					init_io(t_command *cmd);
