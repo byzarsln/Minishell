@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayirmili <ayirmili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: beyza <beyza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 16:24:52 by beyarsla          #+#    #+#             */
-/*   Updated: 2024/10/25 23:06:45 by ayirmili         ###   ########.fr       */
+/*   Updated: 2024/10/26 22:38:07 by beyza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,8 @@ void	create_commands(t_data *data, t_token *token)
 			parse_cmd_input(&data->cmd, &tmp);
 		else if (tmp->type == TRUNC)
 			parse_cmd_trunc(&data->cmd, &tmp);
-		// else if (tmp->type == HEREDOC)
-		// 	parse_cmd_heredoc(data, &data->cmd, &tmp);
+		else if (tmp->type == HEREDOC)
+			parse_cmd_heredoc(data, &data->cmd, &tmp);
 		// else if (tmp->type == APPEND)
 		// 	parse_cmd_append(&data->cmd, &tmp);
 		// else if (tmp->type == PIPE)

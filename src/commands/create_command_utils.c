@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   create_command_utils.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayirmili <ayirmili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: beyza <beyza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 21:42:40 by ayirmili          #+#    #+#             */
-/*   Updated: 2024/10/25 23:04:44 by ayirmili         ###   ########.fr       */
+/*   Updated: 2024/10/26 22:15:02 by beyza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-static int	remove_old_file_ref(t_io_fds *io, bool infile)
+int	remove_old_file_ref(t_io_fds *io, bool infile)
 {
 	if (infile == true && io->infile)
 	{
