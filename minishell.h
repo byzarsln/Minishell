@@ -6,7 +6,7 @@
 /*   By: beyza <beyza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 16:06:47 by ayirmili          #+#    #+#             */
-/*   Updated: 2024/10/27 00:48:12 by beyza            ###   ########.fr       */
+/*   Updated: 2024/10/28 01:12:43 by beyza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,7 @@ t_token					*lst_new_token(char *value, char *value_backup, int type, int status
 
 //commands functions
 t_command				*lst_last_cmd(t_command *cmd);
+t_command				*lst_new_cmd(bool value);
 void					split_var_cmd_token(t_command *last_cmd, char *cmd_str);
 void					create_commands(t_data *data, t_token *token);
 bool					contains_space(char *str);
@@ -165,6 +166,8 @@ void					parse_cmd_input(t_command **last_cmd, t_token **token_lst);
 void					parse_cmd_trunc(t_command **last_cmd, t_token **token_lst);
 void					open_outfile_trunc(t_io_fds *io, char *file, char *var_filename);
 void					parse_cmd_heredoc(t_data *data, t_command **last_cmd, t_token **token_lst);
+void					parse_cmd_append(t_command **last_cmd, t_token **token_lst);
+void					parse_cmd_pipe(t_command **cmd, t_token **token_lst);
 
 // file functions
 void					init_io(t_command *cmd);

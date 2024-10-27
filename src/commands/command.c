@@ -6,7 +6,7 @@
 /*   By: beyza <beyza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 16:24:52 by beyarsla          #+#    #+#             */
-/*   Updated: 2024/10/26 22:38:07 by beyza            ###   ########.fr       */
+/*   Updated: 2024/10/28 01:12:39 by beyza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,12 +99,12 @@ void	create_commands(t_data *data, t_token *token)
 			parse_cmd_trunc(&data->cmd, &tmp);
 		else if (tmp->type == HEREDOC)
 			parse_cmd_heredoc(data, &data->cmd, &tmp);
-		// else if (tmp->type == APPEND)
-		// 	parse_cmd_append(&data->cmd, &tmp);
-		// else if (tmp->type == PIPE)
-		// 	parse_cmd_pipe(&data->cmd, &tmp);
-		// else if (tmp->type == END)
-		// 	break ;
+		else if (tmp->type == APPEND)
+			parse_cmd_append(&data->cmd, &tmp);
+		else if (tmp->type == PIPE)
+			parse_cmd_pipe(&data->cmd, &tmp);
+		else if (tmp->type == END)
+			break ;
 	}
 	prep_no_arg_commands(data);
 }

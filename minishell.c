@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beyarsla <beyarsla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: beyza <beyza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 15:36:36 by ayirmili          #+#    #+#             */
-/*   Updated: 2024/10/21 19:17:00 by beyarsla         ###   ########.fr       */
+/*   Updated: 2024/10/28 01:17:53 by beyza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ void	mini_interactive(t_data *data)
 		if (*data->user_input)
 		{
             add_history(data->user_input);
-			if(parse_input(data) == FAILURE)
-				g_last_exit_code = 1;
+			if(parse_input(data) == SUCCESS)
+				g_last_exit_code = execute(data); // TODO
 			else
-				;
+				g_last_exit_code = 1;
 			free_data(data,false);
 		}
 	}
