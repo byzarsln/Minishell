@@ -6,7 +6,7 @@
 /*   By: beyza <beyza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 16:06:47 by ayirmili          #+#    #+#             */
-/*   Updated: 2024/10/28 01:12:43 by beyza            ###   ########.fr       */
+/*   Updated: 2024/10/28 16:24:14 by beyza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@
 # define HEREDOC 19 // <<
 # define APPEND 20 // >>
 # define END 21 // \0
+
+# define COMMAND_NOT_FOUND 127 //bir komut bulunamadığında çıkış kodu 127 döner.
 
 extern int g_last_exit_code; // global değişken
 
