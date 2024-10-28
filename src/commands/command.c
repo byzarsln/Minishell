@@ -6,7 +6,7 @@
 /*   By: beyza <beyza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 16:24:52 by beyarsla          #+#    #+#             */
-/*   Updated: 2024/10/28 01:12:39 by beyza            ###   ########.fr       */
+/*   Updated: 2024/10/28 16:25:14 by beyza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	create_commands(t_data *data, t_token *token)
 		if (tmp == token)
 			lst_add_back_cmd(&data->cmd, lst_new_cmd(false));
 		if (tmp->type == WORD || tmp->type == VAR)
-			parse_cmd_word(&data->cmd, &tmp);
+			parse_cmd_word(&data->cmd, &tmp);			
 		else if (tmp->type == INPUT)
 			parse_cmd_input(&data->cmd, &tmp);
 		else if (tmp->type == TRUNC)
