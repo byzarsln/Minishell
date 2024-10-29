@@ -6,7 +6,7 @@
 /*   By: beyza <beyza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 16:06:47 by ayirmili          #+#    #+#             */
-/*   Updated: 2024/10/29 17:16:02 by beyza            ###   ########.fr       */
+/*   Updated: 2024/10/29 17:55:16 by beyza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,6 +184,7 @@ int						is_space(int c);
 int						chdir_errno_mod(char *path);
 int						env_counter(char **env);
 char					**reallocate_env(t_data *data, int size);
+int						builtin_echo(t_data *data, char **args);
 
 // file functions
 void					init_io(t_command *cmd);
