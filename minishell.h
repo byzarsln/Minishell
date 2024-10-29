@@ -6,7 +6,7 @@
 /*   By: beyza <beyza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 16:06:47 by ayirmili          #+#    #+#             */
-/*   Updated: 2024/10/28 16:24:14 by beyza            ###   ########.fr       */
+/*   Updated: 2024/10/29 17:16:02 by beyza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,6 +170,20 @@ void					open_outfile_trunc(t_io_fds *io, char *file, char *var_filename);
 void					parse_cmd_heredoc(t_data *data, t_command **last_cmd, t_token **token_lst);
 void					parse_cmd_append(t_command **last_cmd, t_token **token_lst);
 void					parse_cmd_pipe(t_command **cmd, t_token **token_lst);
+
+
+// execute functions
+
+int						execute(t_data *data);
+int						execute_builtin(t_data *data, t_command *cmd);
+
+// builtin functions
+
+int						builtin_cd(t_data *data, char **args);
+int						is_space(int c);
+int						chdir_errno_mod(char *path);
+int						env_counter(char **env);
+char					**reallocate_env(t_data *data, int size);
 
 // file functions
 void					init_io(t_command *cmd);
