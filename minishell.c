@@ -6,7 +6,7 @@
 /*   By: beyza <beyza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 15:36:36 by ayirmili          #+#    #+#             */
-/*   Updated: 2024/10/28 14:55:09 by beyza            ###   ########.fr       */
+/*   Updated: 2024/10/29 13:56:35 by beyza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	mini_interactive(t_data *data)
 		{
             add_history(data->user_input);
 			if(parse_input(data) == SUCCESS)
-				g_last_exit_code = execute(data); // TODO
+				g_last_exit_code = execute(data);
 			else
 				g_last_exit_code = 1;
 			free_data(data,false);

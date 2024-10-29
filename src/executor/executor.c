@@ -6,32 +6,32 @@
 /*   By: beyza <beyza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 14:56:08 by beyza             #+#    #+#             */
-/*   Updated: 2024/10/28 18:00:02 by beyza            ###   ########.fr       */
+/*   Updated: 2024/10/29 16:03:43 by beyza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../minishell.h"
 
 bool	redirect_io(t_io_fds *io)
 {
-	int	ret;
+	int	return_status;
 
-	ret = true;
+	return_status = true;
 	if (!io)
-		return (ret);
+		return (return_status);
 	io->stdin_backup = dup(STDIN_FILENO);
-	if (io->stdin_backup == -1)
-		ret = errmsg_cmd("dup", "stdin backup", strerror(errno), false);
+	if (io->stdin_backup == -1) //kopyalayamadıysa
+		return_status = errmsg_cmd("dup", "stdin backup", strerror(errno), false);
 	io->stdout_backup = dup(STDOUT_FILENO);
 	if (io->stdout_backup == -1)
-		ret = errmsg_cmd("dup", "stdout backup", strerror(errno), false);
+		return_status = errmsg_cmd("dup", "stdout backup", strerror(errno), false);
 	if (io->fd_in != -1)
-		if (dup2(io->fd_in, STDIN_FILENO) == -1)
-			ret = errmsg_cmd("dup2", io->infile, strerror(errno), false);
+		if (dup2(io->fd_in, STDIN_FILENO) == -1) //kopyaladığına yazamıyorsa
+			return_status = errmsg_cmd("dup2", io->infile, strerror(errno), false);
 	if (io->fd_out != -1)
 		if (dup2(io->fd_out, STDOUT_FILENO) == -1)
-			ret = errmsg_cmd("dup2", io->outfile, strerror(errno), false);
-	return (ret);
+			return_status = errmsg_cmd("dup2", io->outfile, strerror(errno), false);
+	return (return_status);
 }
 
 int create_pipes(t_data *data)
@@ -94,7 +94,7 @@ int	execute(t_data *data)
 		&& check_inoutfile(data->cmd->io_fds))
 	{
 		redirect_io(data->cmd->io_fds);
-		// return_status = execute_builtin(data, data->cmd);
+		return_status = execute_builtin(data, data->cmd);
 		// restore_io(data->cmd->io_fds);
 	}
 	// if (return_status != COMMAND_NOT_FOUND)
