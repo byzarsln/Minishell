@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beyarsla <beyarsla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayirmili <ayirmili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 16:06:47 by ayirmili          #+#    #+#             */
-/*   Updated: 2024/10/31 19:45:02 by beyarsla         ###   ########.fr       */
+/*   Updated: 2024/10/31 22:10:40 by ayirmili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,7 +187,11 @@ char					**reallocate_env(t_data *data, int size);
 int						builtin_echo(t_data *data, char **args);
 int						builtin_env(t_data *data, char **args, bool is_env);
 int						builtin_export(t_data *data, char **args);
+int						buildin_pwd(t_data *data, char **args);
+int						builtin_unset(t_data *data, char **args);
+int						builtin_exit(t_data *data, char **args);
 int						set_env_var(t_data *data, char *key, char *env_value);
+bool					is_valid_env_key(char *var);
 
 // file functions
 void					init_io(t_command *cmd);

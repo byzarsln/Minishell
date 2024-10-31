@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beyarsla <beyarsla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayirmili <ayirmili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 18:31:19 by beyarsla          #+#    #+#             */
-/*   Updated: 2024/10/31 20:19:03 by beyarsla         ###   ########.fr       */
+/*   Updated: 2024/10/31 22:01:43 by ayirmili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static bool	is_valid_env_key(char *var)
+bool	is_valid_env_key(char *var)
 {
 	int	i;
 
