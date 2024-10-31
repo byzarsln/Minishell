@@ -6,7 +6,7 @@
 /*   By: beyarsla <beyarsla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 15:36:36 by ayirmili          #+#    #+#             */
-/*   Updated: 2024/10/31 17:19:03 by beyarsla         ###   ########.fr       */
+/*   Updated: 2024/10/31 18:27:14 by beyarsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ void	mini_interactive(t_data *data)
 		data->user_input = readline(PROMPT);
 		if (!data->user_input)
 		{
-			printf("exit\n");
+			// printf("exit\n");
+			ft_putendl_fd("exit", 2);
 			break ;
 		}
 		if (*data->user_input)

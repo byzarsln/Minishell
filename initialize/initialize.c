@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayirmili <ayirmili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: beyarsla <beyarsla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 13:47:54 by ayirmili          #+#    #+#             */
-/*   Updated: 2024/10/17 14:12:33 by ayirmili         ###   ########.fr       */
+/*   Updated: 2024/10/31 20:18:07 by beyarsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int	init_work_direc(t_data *data)
 	return (1);
 }
 
-int	check_init_env(t_data *data, char **env)
+static int	check_init_env(t_data *data, char **env)
 {
 	int	i;
 

@@ -6,7 +6,7 @@
 /*   By: beyarsla <beyarsla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 15:34:51 by beyarsla          #+#    #+#             */
-/*   Updated: 2024/10/31 17:21:29 by beyarsla         ###   ########.fr       */
+/*   Updated: 2024/10/31 17:30:13 by beyarsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	lst_delone_cmd(t_command *cmd, void (*del)(void *))
 		free_mult_str(cmd->args);
 	if (del && cmd && cmd->pipe_fd)
 		(*del)(cmd->pipe_fd);
-	if (del && cmd && cmd->io_fds) // TODO
+	if (del && cmd && cmd->io_fds)
 		free_io(cmd->io_fds);
 	(*del)(cmd);
 }

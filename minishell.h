@@ -6,7 +6,7 @@
 /*   By: beyarsla <beyarsla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 16:06:47 by ayirmili          #+#    #+#             */
-/*   Updated: 2024/10/31 17:21:59 by beyarsla         ###   ########.fr       */
+/*   Updated: 2024/10/31 19:45:02 by beyarsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,13 +179,15 @@ int						execute(t_data *data);
 int						execute_builtin(t_data *data, t_command *cmd);
 
 // builtin functions
-
 int						builtin_cd(t_data *data, char **args);
 int						is_space(int c);
 int						chdir_errno_mod(char *path);
 int						env_counter(char **env);
 char					**reallocate_env(t_data *data, int size);
 int						builtin_echo(t_data *data, char **args);
+int						builtin_env(t_data *data, char **args, bool is_env);
+int						builtin_export(t_data *data, char **args);
+int						set_env_var(t_data *data, char *key, char *env_value);
 
 // file functions
 void					init_io(t_command *cmd);
