@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beyza <beyza@student.42.fr>                +#+  +:+       +#+        */
+/*   By: beyarsla <beyarsla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 16:06:47 by ayirmili          #+#    #+#             */
-/*   Updated: 2024/10/29 17:55:16 by beyza            ###   ########.fr       */
+/*   Updated: 2024/10/31 17:21:59 by beyarsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ void					free_data(t_data *data, bool clear_history);
 void					free_pointr(void *pointr);
 void					free_mult_str(char **str);
 void					free_str_tab(char **tab);
+void					free_io(t_io_fds *io);
 void					lst_clear_token(t_token **token_lst, void (*del)(void *));
 void					lst_delone_token(t_token *token_node, void (*del)(void *));
 
