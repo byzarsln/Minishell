@@ -6,15 +6,86 @@
 /*   By: ayirmili <ayirmili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 14:18:34 by beyza             #+#    #+#             */
-/*   Updated: 2024/11/01 15:26:12 by ayirmili         ###   ########.fr       */
+/*   Updated: 2024/11/01 20:53:34 by ayirmili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-int execute_builtin(t_data *data, t_command *cmd)
+static int	execute_sys_bin(t_data *data, t_command *cmd)
 {
-	int return_status;
+	if (!cmd->command || cmd->command[0] == '\0')
+		return (COMMAND_NOT_FOUND);
+	if (cmd_is_dir(cmd->command))
+		return (COMMAND_NOT_FOUND);
+	cmd->path = get_cmd_path(data, cmd->command);
+	if (!cmd->path)
+		return (COMMAND_NOT_FOUND);
+	if (execve(cmd->path, cmd->args, data->env) == -1)
+		errmsg_cmd("execve", NULL, strerror(errno), errno);
+	return (EXIT_FAILURE);
+}
+
+static void	close_fds(t_command *cmds, bool close_backups)
+{
+	if (cmds->io_fds)
+	{
+		if (cmds->io_fds->fd_in != -1)
+			close(cmds->io_fds->fd_in);
+		if (cmds->io_fds->fd_out != -1)
+			close(cmds->io_fds->fd_out);
+		if (close_backups)
+			restore_io(cmds->io_fds);
+	}
+	close_pipe_fds(cmds, NULL);
+}
+
+static int	execute_command(t_data *data, t_command *cmd)
+{
+	int	ret;
+
+	if (!cmd || !cmd->command)
+		exit_shell(data, errmsg_cmd("child", NULL,
+				"parsing error: no command to execute!", EXIT_FAILURE));
+	if (!check_infile_outfile(cmd->io_fds))
+		exit_shell(data, EXIT_FAILURE);
+	set_pipe_fds(data->cmd, cmd);
+	redirect_io(cmd->io_fds);
+	close_fds(data->cmd, false);
+	if (ft_strchr(cmd->command, '/') == NULL)
+	{
+		ret = execute_builtin(data, cmd);
+		if (ret != COMMAND_NOT_FOUND)
+			exit_shell(data, ret);
+		ret = execute_sys_bin(data, cmd);
+		if (ret != COMMAND_NOT_FOUND)
+			exit_shell(data, ret);
+	}
+	ret = execute_local_bin(data, cmd);
+	exit_shell(data, ret);
+	return (ret);
+}
+
+int	create_children(t_data *data)
+{
+	t_command	*cmd;
+
+	cmd = data->cmd;
+	while (data->pid != 0 && cmd)
+	{
+		data->pid = fork();
+		if (data->pid == -1)
+			return (errmsg_cmd("fork", NULL, strerror(errno), EXIT_FAILURE));
+		else if (data->pid == 0)
+			execute_command(data, cmd);
+		cmd = cmd->next;
+	}
+	return (get_children(data));
+}
+
+int	execute_builtin(t_data *data, t_command *cmd)
+{
+	int	return_status;
 
 	return_status = COMMAND_NOT_FOUND;
 	if (ft_strncmp(cmd->command, "cd", 3) == 0)
@@ -22,7 +93,7 @@ int execute_builtin(t_data *data, t_command *cmd)
 	else if (ft_strncmp(cmd->command, "echo", 5) == 0)
 		return_status = builtin_echo(data, cmd->args);
 	else if (ft_strncmp(cmd->command, "env", 4) == 0)
-		return_status = builtin_env(data, cmd->args); 
+		return_status = builtin_env(data, cmd->args);
 	else if (ft_strncmp(cmd->command, "export", 7) == 0)
 		return_status = builtin_export(data, cmd->args);
 	else if (ft_strncmp(cmd->command, "pwd", 4) == 0)

@@ -9,7 +9,7 @@ src/commands/command_word_utils2.c src/commands/create_command.c src/commands/cr
 src/errors/error.c src/commands/command_heredoc.c src/commands/command_heredoc2.c src/commands/command_heredoc3.c \
 src/commands/command_append.c src/commands/command_pipe.c src/executor/executor.c src/executor/executor_utils.c \
 builtins/cd.c builtins/cd_utils.c builtins/echo.c builtins/env.c builtins/export.c builtins/pwd.c \
-builtins/unset.c builtins/exit.c
+builtins/unset.c builtins/exit.c src/executor/execute_cmd.c src/executor/execute_cmd_utils.c src/executor/execute_cmd_utils2.c\
 
 CFLAGS = # -Wall -Wextra -Werror -g -fsanitize=address # MallocStackLogging=1
 LIBFT = lib/libft/libft.a

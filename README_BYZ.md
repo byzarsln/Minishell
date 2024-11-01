@@ -11,8 +11,12 @@
 
 
 ** HATA DURUMLARI
- - "export i" durumu kontrol edilecek bu durumda export listesine eklenirken env listesine eklenmemsi gerekiyor
  -  echo $a işlemesi echo modda hatalı çalışıyor. 
-  - export a='
-  - exp: echo $a"kj"$a
- - space tab gelince seg errero kontrol edilecek
+   - export a='
+   - exp: echo $a"kj"$a
+ - unset  durumunda hata var.hataya ulaşmak için aşağıdakileri yap
+   - export i
+   - export i=asim
+   - unset i
+   - export
+ - bu işlemleri yaptığında env içinden i değeri silinmiş olacak ama export içinde hala var

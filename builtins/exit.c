@@ -6,7 +6,7 @@
 /*   By: ayirmili <ayirmili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 22:07:43 by ayirmili          #+#    #+#             */
-/*   Updated: 2024/11/01 14:08:39 by ayirmili         ###   ########.fr       */
+/*   Updated: 2024/11/01 20:44:20 by ayirmili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static bool	check_out_of_range(int neg, unsigned long long num, bool *error)
 {
-	if ((neg == 1 && num > LONG_MAX)
-		|| (neg == -1 && num > -(unsigned long)LONG_MIN))
+	if ((neg == 1 && num > LONG_MAX) || (neg == -1 && num >
+			-(unsigned long)LONG_MIN))
 		*error = true;
 	return (*error);
 }
@@ -101,8 +101,8 @@ int	builtin_exit(t_data *data, char **args)
 	{
 		exit_code = get_exit_code(args[1], &error);
 		if (error)
-			exit_code = errmsg_cmd("exit", args[1],
-					"numeric argument required", 2);
+			exit_code = errmsg_cmd("exit", args[1], "numeric argument required",
+					2);
 		else if (args[2])
 			return (errmsg_cmd("exit", NULL, "too many arguments", 1));
 	}

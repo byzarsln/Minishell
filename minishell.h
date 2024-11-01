@@ -6,7 +6,7 @@
 /*   By: ayirmili <ayirmili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 16:06:47 by ayirmili          #+#    #+#             */
-/*   Updated: 2024/11/01 17:00:31 by ayirmili         ###   ########.fr       */
+/*   Updated: 2024/11/01 21:13:30 by ayirmili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@
 #define LONG_MIN (-LONG_MAX - 1L)
 
 # define COMMAND_NOT_FOUND 127 //bir komut bulunamadığında çıkış kodu 127 döner.
+# define CMD_NOT_EXECUTABLE 126
 
 extern int g_last_exit_code; // global değişken
 
@@ -182,6 +183,19 @@ void					parse_cmd_pipe(t_command **cmd, t_token **token_lst);
 int						execute(t_data *data);
 int						execute_builtin(t_data *data, t_command *cmd);
 bool					restore_io(t_io_fds *io);
+int						create_children(t_data *data);
+bool					check_infile_outfile(t_io_fds *io);
+bool					redirect_io(t_io_fds *io);
+int						execute_local_bin(t_data *data, t_command *cmd);
+int						get_env_var_index(char **env, char *var);
+bool					cmd_is_dir(char *cmd);
+bool					set_pipe_fds(t_command *cmds, t_command *c);
+int						get_children(t_data *data);
+char					*find_valid_cmd_path(char *cmd, char **paths);
+char					*get_cmd_path(t_data *data, char *name);
+void					close_pipe_fds(t_command *cmds, t_command *skip_cmd);
+void					close_fds(t_command *cmds, bool close_backups);
+char					*get_env_var_value(char **env, char *var);
 
 // builtin functions
 int						builtin_cd(t_data *data, char **args);
