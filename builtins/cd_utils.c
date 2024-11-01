@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beyza <beyza@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ayirmili <ayirmili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 17:08:12 by beyza             #+#    #+#             */
-/*   Updated: 2024/10/29 17:29:05 by beyza            ###   ########.fr       */
+/*   Updated: 2024/11/01 16:16:38 by ayirmili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int is_space(int c)
     return (0);
 }
 
-char	**reallocate_env(t_data *data, int size)
+char	**reallocate_env(t_data *data, int size, char **data_env)
 {
 	char	**new_env;
 	int		i;
@@ -46,12 +46,12 @@ char	**reallocate_env(t_data *data, int size)
 	if (!new_env)
 		return (NULL);
 	i = 0;
-	while (data->env[i] && i < size)
+	while (data_env[i] && i < size)
 	{
-		new_env[i] = ft_strdup(data->env[i]);
-		free_pointr(data->env[i]);
+		new_env[i] = ft_strdup(data_env[i]);
+		free_pointr(data_env[i]);
 		i++;
 	}
-	free(data->env);
+	free(data_env);
 	return (new_env);
 }

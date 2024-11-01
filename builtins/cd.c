@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beyarsla <beyarsla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayirmili <ayirmili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 14:40:11 by beyza             #+#    #+#             */
-/*   Updated: 2024/10/31 20:26:58 by beyarsla         ###   ########.fr       */
+/*   Updated: 2024/11/01 16:17:47 by ayirmili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int set_env_var(t_data *data, char *key, char *env_value)
 	index = env_find_index(data->env, key);
 	if (env_value == NULL)
 		env_value = "";
-	tmp = ft_strjoin("=", env_value);
+	tmp = ft_strjoin("=", env_value);	
 	if (!tmp)
 		return (FAILURE);
 	if (index != -1 && data->env[index])
@@ -31,7 +31,7 @@ int set_env_var(t_data *data, char *key, char *env_value)
 	else
 	{
 		index = env_counter(data->env);
-		data->env = reallocate_env(data, index + 1); // Reallocates memory for the global variable g_env_vars. dizinin ortasından tek bir değeri değiştirirken eski verilerin kaybolmaması için bunları kopyalıyoruz.daha düzenli bir yapı yapıyoruz.
+		data->env = reallocate_env(data, index + 1, data->env); // Reallocates memory for the global variable g_env_vars. dizinin ortasından tek bir değeri değiştirirken eski verilerin kaybolmaması için bunları kopyalıyoruz.daha düzenli bir yapı yapıyoruz.
 		if (!data->env)
 			return (FAILURE);
 		data->env[index] = ft_strjoin(key, tmp);
@@ -92,7 +92,7 @@ int builtin_cd(t_data *data, char **args)
 		path = env_find_value(data->env, "HOME");
 		if (!path || *path == '\0' || is_space(*path))
 			return (errmsg_cmd("cd", NULL, "HOME not set", EXIT_FAILURE));
-		return (change_dir(data, path));
+		return (!change_dir(data, path));
 	}
 	if (args[2])
 		return (errmsg_cmd("cd", NULL, "too many arguments", EXIT_FAILURE));
@@ -101,7 +101,7 @@ int builtin_cd(t_data *data, char **args)
 		path = env_find_value(data->env, "OLDPWD");
 		if (!path)
 			return (errmsg_cmd("cd", NULL, "OLDPWD not set", EXIT_FAILURE));
-		return (change_dir(data, path));
+		return (!change_dir(data, path));
 	}
-	return (change_dir(data, args[1]));
+	return (!change_dir(data, args[1]));
 }

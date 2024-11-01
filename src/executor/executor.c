@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beyza <beyza@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ayirmili <ayirmili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 14:56:08 by beyza             #+#    #+#             */
-/*   Updated: 2024/10/29 16:03:43 by beyza            ###   ########.fr       */
+/*   Updated: 2024/11/01 14:00:45 by ayirmili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int	execute(t_data *data)
 	{
 		redirect_io(data->cmd->io_fds);
 		return_status = execute_builtin(data, data->cmd);
-		// restore_io(data->cmd->io_fds);
+		restore_io(data->cmd->io_fds);
 	}
 	// if (return_status != COMMAND_NOT_FOUND)
 	// 	return (return_status);

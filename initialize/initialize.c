@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beyarsla <beyarsla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayirmili <ayirmili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 13:47:54 by ayirmili          #+#    #+#             */
-/*   Updated: 2024/10/31 20:18:07 by beyarsla         ###   ########.fr       */
+/*   Updated: 2024/11/01 20:01:30 by ayirmili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,12 +88,14 @@ static int	check_init_env(t_data *data, char **env)
 	while (env[i] && env)
 		i++;
 	data->env = ft_calloc((i + 1), sizeof * data->env);
-	if (!data->env)
+	data->export_env = ft_calloc((i + 1), sizeof * data->export_env);
+	if (!data->env || !data->export_env)
 		return (false);
 	i = 0;
 	while (env[i])
 	{
 		data->env[i] = ft_strdup(env[i]);
+		data->export_env[i] = ft_strdup(env[i]);
 		if (!data->env[i])
 			return (0);
 		i++;

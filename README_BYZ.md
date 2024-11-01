@@ -8,3 +8,11 @@
 4. **data->user_input**, `readline` ile alındı. Define edilen `PROMPT` ile terminaldeki `"minishell>$"` yazısının renkli görünmesi sağlandı.
 
 *PATH_MAX'teki 4096 değeri, Linux ve Mac sistemlerinde bir dosya yolunun maksimum uzunluğunu ifade eder.*
+
+
+** HATA DURUMLARI
+ - "export i" durumu kontrol edilecek bu durumda export listesine eklenirken env listesine eklenmemsi gerekiyor
+ -  echo $a işlemesi echo modda hatalı çalışıyor. 
+  - export a='
+  - exp: echo $a"kj"$a
+ - space tab gelince seg errero kontrol edilecek

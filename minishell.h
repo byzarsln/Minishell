@@ -6,7 +6,7 @@
 /*   By: ayirmili <ayirmili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 16:06:47 by ayirmili          #+#    #+#             */
-/*   Updated: 2024/10/31 22:10:40 by ayirmili         ###   ########.fr       */
+/*   Updated: 2024/11/01 17:00:31 by ayirmili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,9 @@
 # define APPEND 20 // >>
 # define END 21 // \0
 
+#define LONG_MAX 9223372036854775807L
+#define LONG_MIN (-LONG_MAX - 1L)
+
 # define COMMAND_NOT_FOUND 127 //bir komut bulunamadığında çıkış kodu 127 döner.
 
 extern int g_last_exit_code; // global değişken
@@ -100,6 +103,7 @@ typedef struct s_data
 	t_command			*cmd;
 	char				*user_input;
 	char				**env;
+	char				**export_env;
 	char				*work_direc;
 	char				*old_work_direc;
 	pid_t				pid;
@@ -177,20 +181,23 @@ void					parse_cmd_pipe(t_command **cmd, t_token **token_lst);
 
 int						execute(t_data *data);
 int						execute_builtin(t_data *data, t_command *cmd);
+bool					restore_io(t_io_fds *io);
 
 // builtin functions
 int						builtin_cd(t_data *data, char **args);
 int						is_space(int c);
 int						chdir_errno_mod(char *path);
 int						env_counter(char **env);
-char					**reallocate_env(t_data *data, int size);
+char					**reallocate_env(t_data *data, int size, char **data_env);
 int						builtin_echo(t_data *data, char **args);
-int						builtin_env(t_data *data, char **args, bool is_env);
+int						builtin_env(t_data *data, char **args);
+int						write_export(t_data *data, char **args);
 int						builtin_export(t_data *data, char **args);
 int						buildin_pwd(t_data *data, char **args);
 int						builtin_unset(t_data *data, char **args);
 int						builtin_exit(t_data *data, char **args);
 int						set_env_var(t_data *data, char *key, char *env_value);
+int						set_export_var(t_data *data, char *key, char *env_value, bool control);
 bool					is_valid_env_key(char *var);
 
 // file functions
