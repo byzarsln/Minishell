@@ -6,12 +6,11 @@
 /*   By: ayirmili <ayirmili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 22:07:43 by ayirmili          #+#    #+#             */
-/*   Updated: 2024/10/31 22:16:32 by ayirmili         ###   ########.fr       */
+/*   Updated: 2024/11/01 14:08:39 by ayirmili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-#include <limits.h> // TODO bunu ekemnin doğruluğu kontrol edilecek
 
 static bool	check_out_of_range(int neg, unsigned long long num, bool *error)
 {
@@ -94,7 +93,7 @@ int	builtin_exit(t_data *data, char **args)
 
 	quiet = is_quiet_mode(data);
 	error = false;
-	if (!quiet) // TODO && data->interactive bu değer bizim header da yok nasıl kontrol ediliyor ne işe yarıyor kontrol edilecek
+	if (!quiet)
 		ft_putendl_fd("exit", 2);
 	if (!args || !args[1])
 		exit_code = g_last_exit_code;

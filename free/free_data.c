@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beyarsla <beyarsla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayirmili <ayirmili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 15:34:51 by beyarsla          #+#    #+#             */
-/*   Updated: 2024/10/31 17:30:13 by beyarsla         ###   ########.fr       */
+/*   Updated: 2024/11/01 19:52:57 by ayirmili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,8 @@ void	free_data(t_data *data, bool clear_history)
 	{
 		if (data && data->env)
 			free_mult_str(data->env);
+		if (data && data->export_env)
+			free_mult_str(data->export_env);
 		if (data && data->work_direc)
 			free_pointr(data->work_direc);
 		if (data && data->old_work_direc)
