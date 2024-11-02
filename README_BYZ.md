@@ -22,7 +22,7 @@
    - unset i
    - export
  - bu işlemleri yaptığında env içinden i değeri silinmiş olacak ama export içinde hala var  -->
-
+ - handle_quotes fonksiyonu içerisinde bir yorum satırı bıraktım burada hatanın nedeni yazıyor.
 
  - sinyaller döngü durumlarında işlemiyor(control -c)
  - terminaldeki şapka C işareti kaldırılacak
