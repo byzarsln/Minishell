@@ -6,7 +6,7 @@
 /*   By: ayirmili <ayirmili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 21:58:08 by ayirmili          #+#    #+#             */
-/*   Updated: 2024/11/01 16:19:55 by ayirmili         ###   ########.fr       */
+/*   Updated: 2024/11/02 18:06:34 by ayirmili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ int	builtin_unset(t_data *data, char **args)
 {
 	int	i;
 	int	idx;
+	int	idx1;
 	int	ret;
 
 	ret = EXIT_SUCCESS;
@@ -76,11 +77,11 @@ int	builtin_unset(t_data *data, char **args)
 		else
 		{
 			idx = env_find_index(data->env, args[i]);
+			idx1 = env_find_index(data->export_env, args[i]);
 			if (idx != -1)
-			{
 				remove_env_var(data, idx);
-				remove_export_var(data, idx);
-			}
+			if (idx1 != -1)
+				remove_export_var(data, idx1);
 		}
 		i++;
 	}

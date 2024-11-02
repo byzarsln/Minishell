@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beyarsla <beyarsla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayirmili <ayirmili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 13:47:54 by ayirmili          #+#    #+#             */
-/*   Updated: 2024/11/02 17:37:56 by beyarsla         ###   ########.fr       */
+/*   Updated: 2024/11/02 18:02:41 by ayirmili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,25 +17,20 @@ char	*env_find_value(char **env, char *var, bool control)
 	int		i;
 	char	*tmp;
 
-	if (control != false)
-		tmp = ft_strjoin(var, "=");
-	else
-		tmp = var;
+	tmp = ft_strjoin(var, "=");
 	if (!tmp)
 		return (NULL);
 	i = 0;
 	while (env[i])
 	{
-		// printf("env[i]: %s\n", env[i]);
-		if (ft_strncmp(tmp, env[i], ft_strlen(tmp)) == 0)
+		if (ft_strncmp(tmp, env[i], ft_strlen(tmp)) == 0 || ft_strncmp(var, env[i], ft_strlen(var)) == 0)
 		{
 			free_tmp(tmp);
 			return (ft_strchr(env[i], '=') + 1);
 		}
 		i++;
 	}
-	if (control != false)
-		free_tmp(tmp);
+	free_tmp(tmp);
 	return (NULL);
 }
 
@@ -50,7 +45,7 @@ int	env_find_index(char **env, char *var)
 	i = 0;
 	while (env[i])
 	{
-		if (ft_strncmp(tmp, env[i], ft_strlen(tmp)) == 0)
+		if (ft_strncmp(tmp, env[i], ft_strlen(tmp)) == 0 || ft_strncmp(var, env[i], ft_strlen(var)) == 0)
 		{
 			free_tmp(tmp);
 			return (i);
