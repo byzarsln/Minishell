@@ -14,12 +14,14 @@
  -  echo $a işlemesi echo modda hatalı çalışıyor. 
    - export a='
    - exp: echo $a"kj"$a
- - unset  durumunda hata var.hataya ulaşmak için aşağıdakileri yap
+
+   DONE:
+ <!-- - unset  durumunda hata var.hataya ulaşmak için aşağıdakileri yap
    - export i
    - export i=asim
    - unset i
    - export
- - bu işlemleri yaptığında env içinden i değeri silinmiş olacak ama export içinde hala var
+ - bu işlemleri yaptığında env içinden i değeri silinmiş olacak ama export içinde hala var  -->
 
 
  - sinyaller döngü durumlarında işlemiyor(control -c)
@@ -27,3 +29,4 @@
  - leakler kontrol edilecek
  - global exit durumları düzenlenecek
  - control d durumundaki exit yazısı düzeltilecek
+ - çıkışlardaki statusler kontrol edilecek

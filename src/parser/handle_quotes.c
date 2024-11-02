@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_quotes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayirmili <ayirmili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: beyarsla <beyarsla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 14:18:14 by ayirmili          #+#    #+#             */
-/*   Updated: 2024/10/25 22:05:06 by ayirmili         ###   ########.fr       */
+/*   Updated: 2024/11/02 18:50:07 by beyarsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int	handle_quotes(t_data *data)
 	while (temp)
 	{
 		if (is_any_quotes(temp->value) == SUCCESS && (!temp->prev || (temp->prev
-					&& temp->prev->type != HEREDOC)))
+					&& temp->prev->type != HEREDOC && temp->type != VAR))) // TODO BURASI 
 			remove_quotes(&temp);
 		temp = temp->next;
 	}
