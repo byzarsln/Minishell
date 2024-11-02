@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayirmili <ayirmili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: beyarsla <beyarsla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 18:31:19 by beyarsla          #+#    #+#             */
-/*   Updated: 2024/11/01 20:15:12 by ayirmili         ###   ########.fr       */
+/*   Updated: 2024/11/02 17:39:20 by beyarsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int set_export_var(t_data *data, char *key, char *env_value, bool control)
 		tmp = ft_strdup(env_value);
 	if (!tmp)
 		return (FAILURE);
-	if (control == false && env_find_value(data->export_env, key) != NULL)
+	if (control == false && env_find_value(data->export_env, key, control) != NULL)
 		return (SUCCESS);
 	if (index != -1 && data->export_env[index])
 	{
@@ -63,7 +63,7 @@ int	write_export(t_data *data, char **args)
 			printf("declare -x %s=\"%s\"\n", key_value[0], key_value[1]);
 		else if (key_value && key_value[0])
 		{
-			if (env_find_value(data->env, key_value[0]) != 0)
+			if (env_find_value(data->env, key_value[0], true) != 0)
 				printf("declare -x %s=\"\"\n", key_value[0]);
 			else
 				printf("declare -x %s\n", key_value[0]);

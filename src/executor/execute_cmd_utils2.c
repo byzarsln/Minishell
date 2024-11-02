@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_cmd_utils2.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayirmili <ayirmili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: beyarsla <beyarsla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 21:07:49 by ayirmili          #+#    #+#             */
-/*   Updated: 2024/11/01 21:14:25 by ayirmili         ###   ########.fr       */
+/*   Updated: 2024/11/02 17:11:38 by beyarsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,20 +32,6 @@ char	*get_env_var_value(char **env, char *var)
 	}
 	free_pointr(tmp);
 	return (NULL);
-}
-
-void	close_fds(t_command *cmds, bool close_backups)
-{
-	if (cmds->io_fds)
-	{
-		if (cmds->io_fds->fd_in != -1)
-			close(cmds->io_fds->fd_in);
-		if (cmds->io_fds->fd_out != -1)
-			close(cmds->io_fds->fd_out);
-		if (close_backups)
-			restore_io(cmds->io_fds);
-	}
-	close_pipe_fds(cmds, NULL);
 }
 
 char	*find_valid_cmd_path(char *cmd, char **paths)

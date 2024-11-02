@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayirmili <ayirmili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: beyarsla <beyarsla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 18:50:09 by beyza             #+#    #+#             */
-/*   Updated: 2024/10/24 13:07:04 by ayirmili         ###   ########.fr       */
+/*   Updated: 2024/11/02 17:25:28 by beyarsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,8 @@ void	exit_shell(t_data *data, int exno)
 	if (data)
 	{
 		if (data->cmd && data->cmd->io_fds)
-			;
-			//TODO close_fds(data->cmd, true);
-		//TODOfree_data(data, true);
+			close_fds(data->cmd, true);
+		free_data(data, true);
 	}
 	exit(exno);
 }
