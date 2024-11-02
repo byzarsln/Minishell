@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beyza <beyza@student.42.fr>                +#+  +:+       +#+        */
+/*   By: beyarsla <beyarsla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 17:52:02 by beyza             #+#    #+#             */
-/*   Updated: 2024/10/29 17:55:58 by beyza            ###   ########.fr       */
+/*   Updated: 2024/11/02 18:50:14 by beyarsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static void echo_print_args(char **args, bool n_flag, int i)
     }
 }
 
-int builtin_echo(t_data *data, char **args)
+int builtin_echo(t_data *data, char **args) // TODO BURASI
 {
     int i;
     bool n_flag;
