@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayirmili <ayirmili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: beyarsla <beyarsla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 14:18:34 by beyza             #+#    #+#             */
-/*   Updated: 2024/11/01 20:53:34 by ayirmili         ###   ########.fr       */
+/*   Updated: 2024/11/02 17:11:01 by beyarsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	execute_sys_bin(t_data *data, t_command *cmd)
 	return (EXIT_FAILURE);
 }
 
-static void	close_fds(t_command *cmds, bool close_backups)
+void	close_fds(t_command *cmds, bool close_backups)
 {
 	if (cmds->io_fds)
 	{

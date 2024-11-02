@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayirmili <ayirmili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: beyarsla <beyarsla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 16:06:47 by ayirmili          #+#    #+#             */
-/*   Updated: 2024/11/01 21:13:30 by ayirmili         ###   ########.fr       */
+/*   Updated: 2024/11/02 17:30:03 by beyarsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,7 @@ void					lst_delone_token(t_token *token_node, void (*del)(void *));
 int						check_init_data(t_data *data, char **env);
 int						init_work_direc(t_data *data);
 int						env_find_index(char **env, char *var);
-char					*env_find_value(char **env, char *var);
+char					*env_find_value(char **env, char *var, bool control);
 
 // parser functions
 char					*search_env_var(t_data *data, char *var);

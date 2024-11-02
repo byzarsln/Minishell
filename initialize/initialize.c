@@ -3,26 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   initialize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayirmili <ayirmili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: beyarsla <beyarsla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 13:47:54 by ayirmili          #+#    #+#             */
-/*   Updated: 2024/11/01 20:01:30 by ayirmili         ###   ########.fr       */
+/*   Updated: 2024/11/02 17:37:56 by beyarsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	*env_find_value(char **env, char *var)
+char	*env_find_value(char **env, char *var, bool control)
 {
 	int		i;
 	char	*tmp;
 
-	tmp = ft_strjoin(var, "=");
+	if (control != false)
+		tmp = ft_strjoin(var, "=");
+	else
+		tmp = var;
 	if (!tmp)
 		return (NULL);
 	i = 0;
 	while (env[i])
 	{
+		// printf("env[i]: %s\n", env[i]);
 		if (ft_strncmp(tmp, env[i], ft_strlen(tmp)) == 0)
 		{
 			free_tmp(tmp);
@@ -30,7 +34,8 @@ char	*env_find_value(char **env, char *var)
 		}
 		i++;
 	}
-	free_tmp(tmp);
+	if (control != false)
+		free_tmp(tmp);
 	return (NULL);
 }
 
@@ -67,7 +72,7 @@ int	init_work_direc(t_data *data)
 		return (0);
 	if (env_find_index(data->env, "OLDPWD") != -1)
 	{
-		data->old_work_direc = ft_strdup(env_find_value(data->env, "OLDPWD"));
+		data->old_work_direc = ft_strdup(env_find_value(data->env, "OLDPWD", true));
 		if (!data->old_work_direc)
 			return (0);
 	}
