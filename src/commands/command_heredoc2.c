@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_heredoc2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beyza <beyza@student.42.fr>                +#+  +:+       +#+        */
+/*   By: beyarsla <beyarsla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 23:59:49 by beyza             #+#    #+#             */
-/*   Updated: 2024/10/27 00:59:19 by beyza            ###   ########.fr       */
+/*   Updated: 2024/11/03 18:23:08 by beyarsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,9 @@ char	*handle_dollar_in_heredoc(t_data *data, char *str)
 	while (str[i])
 	{
 		if (str[i] == '$'
-			&& is_next_char_a_sep(str[i + 1]) == false
-			&& var_between_quotes(str, i) == false)
-			str = replace_str_heredoc(str, recover_val(NULL, str + i, data), i);
+			&& is_next_char_a_sep(str[i + 1]) == FAILURE
+			&& var_between_quotes(str, i) == FAILURE)
+				str = replace_str_heredoc(str, recover_val(NULL, str + i, data), i);
 		else
 			i++;
 	}
