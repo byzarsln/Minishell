@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayirmili <ayirmili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: beyarsla <beyarsla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 15:36:36 by ayirmili          #+#    #+#             */
-/*   Updated: 2024/11/01 19:20:49 by ayirmili         ###   ########.fr       */
+/*   Updated: 2024/11/03 18:59:28 by beyarsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int		g_last_exit_code;
 
 void	mini_interactive(t_data *data)
 {
@@ -22,7 +20,6 @@ void	mini_interactive(t_data *data)
 		data->user_input = readline(PROMPT);
 		if (!data->user_input)
 		{
-			// printf("exit\n");
 			ft_putendl_fd("exit", 2);
 			break ;
 		}
@@ -51,5 +48,6 @@ int	main(int ac, char **av, char **env)
 	if (!check_init_data(&data, env))
 		exit_shell(NULL, EXIT_FAILURE);
 	mini_interactive(&data);
-	printf("%s", av[0]);
+	exit_shell(&data, g_last_exit_code);
+	return (0);
 }

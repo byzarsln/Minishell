@@ -6,7 +6,7 @@
 /*   By: beyarsla <beyarsla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 15:37:51 by ayirmili          #+#    #+#             */
-/*   Updated: 2024/11/03 16:29:28 by beyarsla         ###   ########.fr       */
+/*   Updated: 2024/11/03 18:25:49 by beyarsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ int	tokenizer(t_data *data, char *user_input)
 		if (status == DEFAULT)
 			start = save_word_or_sep(&i, user_input, start, data);
 	}
-	printf("STATUS %d\n", status);
 	if (status != DEFAULT)
 	{
 		status_error(status);

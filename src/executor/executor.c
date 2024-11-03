@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayirmili <ayirmili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: beyarsla <beyarsla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 14:56:08 by beyza             #+#    #+#             */
-/*   Updated: 2024/11/01 20:43:56 by ayirmili         ###   ########.fr       */
+/*   Updated: 2024/11/03 18:12:27 by beyarsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+
+int	g_last_exit_code;
 
 bool	redirect_io(t_io_fds *io)
 {

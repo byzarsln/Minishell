@@ -6,7 +6,7 @@
 /*   By: beyarsla <beyarsla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 14:18:14 by ayirmili          #+#    #+#             */
-/*   Updated: 2024/11/03 16:38:43 by beyarsla         ###   ########.fr       */
+/*   Updated: 2024/11/03 18:17:53 by beyarsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,6 @@ int	remove_quotes(t_token **token_node)
 		return (1);
 	while ((*token_node)->value[i])
 	{
-		printf("toke->value: %c, ", (*token_node)->value[i]);
-		printf("toke->status: %d\n", (*token_node)->status);
 		if (if_quotes_and_default(token_node, i) == SUCCESS)
 		{
 			change_status_to_quote(token_node, &i);

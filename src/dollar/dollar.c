@@ -6,7 +6,7 @@
 /*   By: beyarsla <beyarsla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 14:06:41 by ayirmili          #+#    #+#             */
-/*   Updated: 2024/11/03 16:23:26 by beyarsla         ###   ########.fr       */
+/*   Updated: 2024/11/03 18:25:28 by beyarsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,24 +44,6 @@ int	var_between_quotes(char *str, int i)
 	return (FAILURE);
 }
 
-static char	*find_var(t_token *token, char *str, t_data *data)
-{
-	char	*value;
-	char	*var;
-
-	var = identify_var(str);
-	if (var && var_exists(data, var) == 0)
-	{
-		if (token != NULL)
-			token->var_exists = true;
-		value = search_env_var(data, var);
-	}
-	else
-		value = NULL;
-	free_pointr(var);
-	return (value);
-}
-
 void	handle_dollar(t_data *data, t_token **token_lst)
 {
 	t_token	*tmp;
@@ -80,7 +62,7 @@ void	handle_dollar(t_data *data, t_token **token_lst)
 						+ 1]) == FAILURE && var_between_quotes(tmp->value,
 						i) == FAILURE && (tmp->status == DEFAULT
 						|| tmp->status == DQUOTE))
-					handle_replace_var(&tmp, find_var(tmp, tmp->value + i,
+					handle_replace_var(&tmp, recover_val(tmp, tmp->value + i,
 							data), i);
 				else
 					i++;

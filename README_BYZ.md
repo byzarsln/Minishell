@@ -11,11 +11,12 @@
 
 
 ** HATA DURUMLARI
- -  echo $a işlemesi echo modda hatalı çalışıyor. 
+  DONE:
+ <!-- -  echo $a işlemesi echo modda hatalı çalışıyor.  -->
    - export a='
    - exp: echo $a"kj"$a
 
-   DONE:
+  DONE:
  <!-- - unset  durumunda hata var.hataya ulaşmak için aşağıdakileri yap
    - export i
    - export i=asim
@@ -29,4 +30,4 @@
  - leakler kontrol edilecek
  - global exit durumları düzenlenecek
  - control d durumundaki exit yazısı düzeltilecek
- - çıkışlardaki statusler kontrol edilecek
+ <!-- - çıkışlardaki statusler kontrol edilecek --> DONE

@@ -6,7 +6,7 @@
 /*   By: beyarsla <beyarsla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 16:06:47 by ayirmili          #+#    #+#             */
-/*   Updated: 2024/11/03 16:13:40 by beyarsla         ###   ########.fr       */
+/*   Updated: 2024/11/03 18:24:42 by beyarsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,7 @@ int						if_quotes_and_default(t_token **token_node, int i);
 int						change_back_to_default(t_token **token_node, int *i);
 t_token					*lst_new_token(char *value, char *value_backup, int type, int status);
 int						remove_quotes(t_token **token_node);
+char					*recover_val(t_token *token, char *str, t_data *data);
 
 //commands functions
 t_command				*lst_last_cmd(t_command *cmd);
