@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beyarsla <beyarsla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayirmili <ayirmili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 22:07:43 by ayirmili          #+#    #+#             */
-/*   Updated: 2024/11/03 20:22:30 by beyarsla         ###   ########.fr       */
+/*   Updated: 2024/11/03 21:39:16 by ayirmili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static bool	check_out_of_range(int neg, unsigned long long num, bool *error)
 {
-	if ((neg == 1 && num > LONG_MAX) || (neg == -1 && num >
-			-(unsigned long)LONG_MIN))
+	if ((neg == 1 && num > LONG_MAX) || (neg == -1 && \
+		num > -(unsigned long)LONG_MIN))
 		*error = true;
 	return (*error);
 }
@@ -101,8 +101,8 @@ int	builtin_exit(t_data *data, char **args, int exit_code)
 	{
 		exit_return = get_exit_code(args[1], &error, exit_code);
 		if (error)
-			exit_return = errmsg_cmd("exit", args[1], "numeric argument required",
-					2);
+			exit_return = errmsg_cmd("exit", args[1], \
+			"numeric argument required", 2);
 		else if (args[2])
 			return (errmsg_cmd("exit", NULL, "too many arguments", 1));
 	}

@@ -6,7 +6,7 @@
 /*   By: ayirmili <ayirmili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 18:31:19 by beyarsla          #+#    #+#             */
-/*   Updated: 2024/11/02 17:52:02 by ayirmili         ###   ########.fr       */
+/*   Updated: 2024/11/03 21:39:30 by ayirmili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int set_export_var(t_data *data, char *key, char *env_value, bool control)
 	char *tmp;
 
 	index = env_find_index(data->export_env, key);
+	if (control == false && env_find_value(data->export_env, key, control) != NULL)
+		return (SUCCESS);
 	if (env_value == NULL)
 		env_value = "";
 	if (control != false)
@@ -26,8 +28,6 @@ int set_export_var(t_data *data, char *key, char *env_value, bool control)
 		tmp = ft_strdup(env_value);
 	if (!tmp)
 		return (FAILURE);
-	if (control == false && env_find_value(data->export_env, key, control) != NULL)
-		return (SUCCESS);
 	if (index != -1 && data->export_env[index])
 	{
 		free_pointr(data->export_env[index]);
@@ -36,7 +36,7 @@ int set_export_var(t_data *data, char *key, char *env_value, bool control)
 	else
 	{
 		index = env_counter(data->export_env);
-		data->export_env = reallocate_env(data, index + 1, data->export_env); // Reallocates memory for the global variable g_env_vars. dizinin ortasından tek bir değeri değiştirirken eski verilerin kaybolmaması için bunları kopyalıyoruz.daha düzenli bir yapı yapıyoruz.
+		data->export_env = reallocate_env(data, index + 1, data->export_env);
 		if (!data->export_env)
 			return (FAILURE);
 		data->export_env[index] = ft_strjoin(key, tmp);

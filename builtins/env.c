@@ -6,12 +6,11 @@
 /*   By: ayirmili <ayirmili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 18:20:56 by beyarsla          #+#    #+#             */
-/*   Updated: 2024/11/01 15:57:12 by ayirmili         ###   ########.fr       */
+/*   Updated: 2024/11/03 21:37:09 by ayirmili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
 
 int	builtin_env(t_data *data, char **args)
 {
@@ -33,4 +32,3 @@ int	builtin_env(t_data *data, char **args)
 	}
 	return (EXIT_SUCCESS);
 }
-
