@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   command_heredoc.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beyarsla <beyarsla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayirmili <ayirmili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 21:29:12 by beyza             #+#    #+#             */
-/*   Updated: 2024/11/03 20:22:30 by beyarsla         ###   ########.fr       */
+/*   Updated: 2024/11/03 21:46:56 by ayirmili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-static char	*get_heredoc_name(void)//geçici dosya adlarını oluşturur. Bu dosyalar, heredoc girdisini geçici olarak saklamak için kullanılır.
+static char	*get_heredoc_name(void)
 {
 	static int	i;
 	char		*name;
@@ -27,13 +27,13 @@ static char	*get_heredoc_name(void)//geçici dosya adlarını oluşturur. Bu dos
 	return (name);
 }
 
-static char	*get_delim(char *delim, bool *quotes)//tırnak varsa silip, yoksa delimiterı döndürüyor.
+static char	*get_delim(char *delim, bool *quotes)
 {
 	int	len;
 
 	len = ft_strlen(delim);
-	if ((delim[0] == '\"' && delim[len - 1] == '\"')
-		|| (delim[0] == '\'' && delim[len - 1] == '\''))
+	if ((delim[0] == '\"' && delim[len - 1] == '\"') || (delim[0] == '\''
+			&& delim[len - 1] == '\''))
 	{
 		*quotes = true;
 		return (ft_strtrim(delim, "\'\""));
@@ -41,7 +41,7 @@ static char	*get_delim(char *delim, bool *quotes)//tırnak varsa silip, yoksa de
 	return (ft_strdup(delim));
 }
 
-bool	heredoc_process(t_data *data, t_io_fds *io, int fd, int exit_code)// tmpfile a girdileri kopyalar. envden vs değiştirilecek değerleri($PWD nin env deki karşılığı gibi) değiştirerek yazma işlemlerini yapar.) 
+bool	heredoc_process(t_data *data, t_io_fds *io, int fd, int exit_code)
 {
 	char	*line;
 	bool	return_status;
@@ -51,7 +51,7 @@ bool	heredoc_process(t_data *data, t_io_fds *io, int fd, int exit_code)// tmpfil
 	while (1)
 	{
 		set_signals();
-		line = readline(">"); //döngüde başına koymak için
+		line = readline(">");
 		if (!evaluate_heredoc_line(data, &line, &return_status, exit_code))
 			break ;
 		ft_putendl_fd(line, fd);
@@ -61,7 +61,7 @@ bool	heredoc_process(t_data *data, t_io_fds *io, int fd, int exit_code)// tmpfil
 	return (return_status);
 }
 
-bool	get_heredoc(t_data *data, t_io_fds *io, int exit_code) //dosyanın içerisine başarıyla yazılıp yazılamayacağı durumunu döndürüyor.
+bool	get_heredoc(t_data *data, t_io_fds *io, int exit_code)
 {
 	int		tmp_fd;
 	bool	return_status;
@@ -73,7 +73,8 @@ bool	get_heredoc(t_data *data, t_io_fds *io, int exit_code) //dosyanın içerisi
 	return (return_status);
 }
 
-void	parse_cmd_heredoc(t_data *data, t_command **last_cmd, t_token **token_lst, int exit_code)
+void	parse_cmd_heredoc(t_data *data, t_command **last_cmd,
+		t_token **token_lst, int exit_code)
 {
 	t_token		*temp;
 	t_command	*cmd;

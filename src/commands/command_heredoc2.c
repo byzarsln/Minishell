@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_heredoc2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beyarsla <beyarsla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayirmili <ayirmili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 23:59:49 by beyza             #+#    #+#             */
-/*   Updated: 2024/11/03 20:22:30 by beyarsla         ###   ########.fr       */
+/*   Updated: 2024/11/03 21:47:21 by ayirmili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,10 @@ char	*handle_dollar_in_heredoc(t_data *data, char *str, int exit_code)
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] == '$'
-			&& is_next_char_a_sep(str[i + 1]) == FAILURE
+		if (str[i] == '$' && is_next_char_a_sep(str[i + 1]) == FAILURE
 			&& var_between_quotes(str, i) == FAILURE)
-				str = replace_str_heredoc(str, recover_val(NULL, str + i, data, exit_code), i);
+			str = replace_str_heredoc(str, recover_val(NULL, str + i, data,
+						exit_code), i);
 		else
 			i++;
 	}
@@ -88,7 +88,8 @@ static char	*dollar_in_heredoc(t_data *data, char *line, int exit_code)
 	return (make_str_from_tab(words));
 }
 
-int	evaluate_heredoc_line(t_data *data, char **line, bool *return_status, int exit_code)
+int	evaluate_heredoc_line(t_data *data, char **line, bool *return_status,
+		int exit_code)
 {
 	if (*line == NULL)
 	{
@@ -97,7 +98,8 @@ int	evaluate_heredoc_line(t_data *data, char **line, bool *return_status, int ex
 		*return_status = true;
 		return (FAILURE);
 	}
-	if (ft_strncmp(*line, data->cmd->io_fds->heredoc_delimiter, ft_strlen(*line)) == 0)
+	if (ft_strncmp(*line, data->cmd->io_fds->heredoc_delimiter,
+			ft_strlen(*line)) == 0)
 	{
 		*return_status = true;
 		return (FAILURE);

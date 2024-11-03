@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_command_utils.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beyza <beyza@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ayirmili <ayirmili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 21:42:40 by ayirmili          #+#    #+#             */
-/*   Updated: 2024/10/26 22:15:02 by beyza            ###   ########.fr       */
+/*   Updated: 2024/11/03 21:49:40 by ayirmili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	init_io(t_command *cmd)
 {
 	if (!cmd->io_fds)
 	{
-		cmd->io_fds = malloc(sizeof *cmd->io_fds);
+		cmd->io_fds = malloc(sizeof * cmd->io_fds);
 		if (!cmd->io_fds)
 			return ;
 		cmd->io_fds->infile = NULL;

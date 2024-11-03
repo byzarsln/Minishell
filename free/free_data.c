@@ -6,7 +6,7 @@
 /*   By: ayirmili <ayirmili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 15:34:51 by beyarsla          #+#    #+#             */
-/*   Updated: 2024/11/01 19:52:57 by ayirmili         ###   ########.fr       */
+/*   Updated: 2024/11/03 21:43:27 by ayirmili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	lst_delone_cmd(t_command *cmd, void (*del)(void *))
 	(*del)(cmd);
 }
 
-void	lst_delone_token(t_token *token_node, void (*del)(void *)) // TODO
+void	lst_delone_token(t_token *token_node, void (*del)(void *))
 {
 	if (token_node && token_node->value)
 	{
@@ -53,7 +53,7 @@ void	lst_clear_token(t_token **token_lst, void (*del)(void *))
 	while (*token_lst)
 	{
 		tmp = (*token_lst)->next;
-			lst_delone_token(*token_lst, del);
+		lst_delone_token(*token_lst, del);
 		*token_lst = tmp;
 	}
 	*token_lst = NULL;

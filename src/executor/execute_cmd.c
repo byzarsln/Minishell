@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beyarsla <beyarsla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayirmili <ayirmili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 20:48:40 by ayirmili          #+#    #+#             */
-/*   Updated: 2024/11/03 18:29:13 by beyarsla         ###   ########.fr       */
+/*   Updated: 2024/11/03 21:52:00 by ayirmili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ static int	check_command_not_found(t_data *data, t_command *cmd)
 		return (errmsg_cmd(cmd->command, NULL, "command not found",
 				COMMAND_NOT_FOUND));
 	if (access(cmd->command, F_OK) != 0)
-		return (errmsg_cmd(cmd->command, NULL, strerror(errno), COMMAND_NOT_FOUND));
+		return (errmsg_cmd(cmd->command, NULL, strerror(errno), \
+			COMMAND_NOT_FOUND));
 	else if (cmd_is_dir(cmd->command))
 		return (errmsg_cmd(cmd->command, NULL, "Is a directory",
 				CMD_NOT_EXECUTABLE));

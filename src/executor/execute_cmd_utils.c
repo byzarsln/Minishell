@@ -6,7 +6,7 @@
 /*   By: ayirmili <ayirmili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 20:57:52 by ayirmili          #+#    #+#             */
-/*   Updated: 2024/11/01 21:07:13 by ayirmili         ###   ########.fr       */
+/*   Updated: 2024/11/03 21:51:18 by ayirmili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ bool	cmd_is_dir(char *cmd)
 	struct stat	cmd_stat;
 
 	ft_memset(&cmd_stat, 0, sizeof(cmd_stat));
-	stat(cmd, &cmd_stat); // TODO kullanılabilir fonksiyon mu?
+	stat(cmd, &cmd_stat);
 	return (S_ISDIR(cmd_stat.st_mode));
 }
 
