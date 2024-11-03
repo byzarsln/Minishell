@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beyarsla <beyarsla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayirmili <ayirmili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 16:24:52 by beyarsla          #+#    #+#             */
-/*   Updated: 2024/11/03 20:22:30 by beyarsla         ###   ########.fr       */
+/*   Updated: 2024/11/03 21:48:58 by ayirmili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	create_commands(t_data *data, t_token *token, int exit_code)
 		if (tmp == token)
 			lst_add_back_cmd(&data->cmd, lst_new_cmd(false));
 		if (tmp->type == WORD || tmp->type == VAR)
-			parse_cmd_word(&data->cmd, &tmp);			
+			parse_cmd_word(&data->cmd, &tmp);
 		else if (tmp->type == INPUT)
 			parse_cmd_input(&data->cmd, &tmp);
 		else if (tmp->type == TRUNC)

@@ -30,6 +30,7 @@
  - ctrl+c durumunun heredoc sırasında kontrol edilmesi 
  - ctrl+c statusünün durmunun 1 olması
  - leakler kontrol edilecek
+ - echo $i$i$? hata durumu export i="'"
  <!-- - global exit durumları düzenlenecek --> DONEEEEEEEEEE!
  - control d durumundaki exit yazısı düzeltilecek
  <!-- - çıkışlardaki statusler kontrol edilecek --> DONE

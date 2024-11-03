@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beyarsla <beyarsla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayirmili <ayirmili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 13:47:54 by ayirmili          #+#    #+#             */
-/*   Updated: 2024/11/03 19:59:29 by beyarsla         ###   ########.fr       */
+/*   Updated: 2024/11/03 21:45:39 by ayirmili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ char	*env_find_value(char **env, char *var, bool control)
 	i = 0;
 	while (env[i])
 	{
-		if (ft_strncmp(tmp, env[i], ft_strlen(tmp)) == 0 || ft_strncmp(var, env[i], ft_strlen(var)) == 0)
+		if (ft_strncmp(tmp, env[i], ft_strlen(tmp)) == 0 || \
+			ft_strncmp(var, env[i], ft_strlen(var)) == 0)
 		{
 			free_tmp(tmp);
 			return (ft_strchr(env[i], '=') + 1);
@@ -45,7 +46,8 @@ int	env_find_index(char **env, char *var)
 	i = 0;
 	while (env[i])
 	{
-		if (ft_strncmp(tmp, env[i], ft_strlen(tmp)) == 0 || ft_strncmp(var, env[i], ft_strlen(var)) == 0)
+		if (ft_strncmp(tmp, env[i], ft_strlen(tmp)) == 0 || \
+			ft_strncmp(var, env[i], ft_strlen(var)) == 0)
 		{
 			free_tmp(tmp);
 			return (i);
@@ -67,7 +69,8 @@ int	init_work_direc(t_data *data)
 		return (0);
 	if (env_find_index(data->env, "OLDPWD") != -1)
 	{
-		data->old_work_direc = ft_strdup(env_find_value(data->env, "OLDPWD", true));
+		data->old_work_direc = ft_strdup(env_find_value(data->env, \
+			"OLDPWD", true));
 		if (!data->old_work_direc)
 			return (0);
 	}
