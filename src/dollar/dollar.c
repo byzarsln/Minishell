@@ -6,7 +6,7 @@
 /*   By: beyarsla <beyarsla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 14:06:41 by ayirmili          #+#    #+#             */
-/*   Updated: 2024/11/03 18:25:28 by beyarsla         ###   ########.fr       */
+/*   Updated: 2024/11/03 20:19:23 by beyarsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	var_between_quotes(char *str, int i)
 	return (FAILURE);
 }
 
-void	handle_dollar(t_data *data, t_token **token_lst)
+void	handle_dollar(t_data *data, t_token **token_lst, int exit_code)
 {
 	t_token	*tmp;
 	int		i;
@@ -63,7 +63,7 @@ void	handle_dollar(t_data *data, t_token **token_lst)
 						i) == FAILURE && (tmp->status == DEFAULT
 						|| tmp->status == DQUOTE))
 					handle_replace_var(&tmp, recover_val(tmp, tmp->value + i,
-							data), i);
+							data, exit_code), i);
 				else
 					i++;
 			}

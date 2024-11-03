@@ -6,7 +6,7 @@
 /*   By: beyarsla <beyarsla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 23:59:49 by beyza             #+#    #+#             */
-/*   Updated: 2024/11/03 18:23:08 by beyarsla         ###   ########.fr       */
+/*   Updated: 2024/11/03 20:22:30 by beyarsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*replace_str_heredoc(char *str, char *var_value, int index)
 	return (str);
 }
 
-char	*recover_val(t_token *token, char *str, t_data *data)
+char	*recover_val(t_token *token, char *str, t_data *data, int exit_code)
 {
 	char	*value;
 	char	*var;
@@ -42,14 +42,14 @@ char	*recover_val(t_token *token, char *str, t_data *data)
 		value = search_env_var(data, var);
 	}
 	else if (var && var[0] == '?' && var[1] == '=')
-		value = ft_itoa(g_last_exit_code);
+		value = ft_itoa(exit_code);
 	else
 		value = NULL;
 	free_pointr(var);
 	return (value);
 }
 
-char	*handle_dollar_in_heredoc(t_data *data, char *str)
+char	*handle_dollar_in_heredoc(t_data *data, char *str, int exit_code)
 {
 	int	i;
 
@@ -59,14 +59,14 @@ char	*handle_dollar_in_heredoc(t_data *data, char *str)
 		if (str[i] == '$'
 			&& is_next_char_a_sep(str[i + 1]) == FAILURE
 			&& var_between_quotes(str, i) == FAILURE)
-				str = replace_str_heredoc(str, recover_val(NULL, str + i, data), i);
+				str = replace_str_heredoc(str, recover_val(NULL, str + i, data, exit_code), i);
 		else
 			i++;
 	}
 	return (str);
 }
 
-static char	*dollar_in_heredoc(t_data *data, char *line)
+static char	*dollar_in_heredoc(t_data *data, char *line, int exit_code)
 {
 	char	**words;
 	int		i;
@@ -79,7 +79,7 @@ static char	*dollar_in_heredoc(t_data *data, char *line)
 	{
 		if (ft_strchr(words[i], '$'))
 		{
-			words[i] = handle_dollar_in_heredoc(data, words[i]);
+			words[i] = handle_dollar_in_heredoc(data, words[i], exit_code);
 			if (!words[i])
 				return (NULL);
 		}
@@ -88,23 +88,23 @@ static char	*dollar_in_heredoc(t_data *data, char *line)
 	return (make_str_from_tab(words));
 }
 
-int	evaluate_heredoc_line(t_data *data, char **line, t_io_fds *io, bool *return_status)
+int	evaluate_heredoc_line(t_data *data, char **line, bool *return_status, int exit_code)
 {
 	if (*line == NULL)
 	{
 		errmsg_cmd("warning", "here-document delimited by end-of-file: wanted",
-			io->heredoc_delimiter, true);
+			data->cmd->io_fds->heredoc_delimiter, true);
 		*return_status = true;
 		return (FAILURE);
 	}
-	if (ft_strncmp(*line, io->heredoc_delimiter, ft_strlen(*line)) == 0)
+	if (ft_strncmp(*line, data->cmd->io_fds->heredoc_delimiter, ft_strlen(*line)) == 0)
 	{
 		*return_status = true;
 		return (FAILURE);
 	}
-	if (io->heredoc_quotes == false && ft_strchr(*line, '$'))
+	if (data->cmd->io_fds->heredoc_quotes == false && ft_strchr(*line, '$'))
 	{
-		*line = dollar_in_heredoc(data, *line);
+		*line = dollar_in_heredoc(data, *line, exit_code);
 		if (!(*line))
 		{
 			free_pointr(*line);

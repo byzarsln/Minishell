@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_heredoc.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beyza <beyza@student.42.fr>                +#+  +:+       +#+        */
+/*   By: beyarsla <beyarsla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 21:29:12 by beyza             #+#    #+#             */
-/*   Updated: 2024/10/27 00:05:32 by beyza            ###   ########.fr       */
+/*   Updated: 2024/11/03 20:22:30 by beyarsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static char	*get_delim(char *delim, bool *quotes)//tırnak varsa silip, yoksa de
 	return (ft_strdup(delim));
 }
 
-bool	heredoc_process(t_data *data, t_io_fds *io, int fd)// tmpfile a girdileri kopyalar. envden vs değiştirilecek değerleri($PWD nin env deki karşılığı gibi) değiştirerek yazma işlemlerini yapar.) 
+bool	heredoc_process(t_data *data, t_io_fds *io, int fd, int exit_code)// tmpfile a girdileri kopyalar. envden vs değiştirilecek değerleri($PWD nin env deki karşılığı gibi) değiştirerek yazma işlemlerini yapar.) 
 {
 	char	*line;
 	bool	return_status;
@@ -52,7 +52,7 @@ bool	heredoc_process(t_data *data, t_io_fds *io, int fd)// tmpfile a girdileri k
 	{
 		set_signals();
 		line = readline(">"); //döngüde başına koymak için
-		if (!evaluate_heredoc_line(data, &line, io, &return_status))
+		if (!evaluate_heredoc_line(data, &line, &return_status, exit_code))
 			break ;
 		ft_putendl_fd(line, fd);
 		free_pointr(line);
@@ -61,19 +61,19 @@ bool	heredoc_process(t_data *data, t_io_fds *io, int fd)// tmpfile a girdileri k
 	return (return_status);
 }
 
-bool	get_heredoc(t_data *data, t_io_fds *io) //dosyanın içerisine başarıyla yazılıp yazılamayacağı durumunu döndürüyor.
+bool	get_heredoc(t_data *data, t_io_fds *io, int exit_code) //dosyanın içerisine başarıyla yazılıp yazılamayacağı durumunu döndürüyor.
 {
 	int		tmp_fd;
 	bool	return_status;
 
 	return_status = true;
 	tmp_fd = open(io->infile, O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	return_status = heredoc_process(data, io, tmp_fd);
+	return_status = heredoc_process(data, io, tmp_fd, exit_code);
 	close(tmp_fd);
 	return (return_status);
 }
 
-void	parse_cmd_heredoc(t_data *data, t_command **last_cmd, t_token **token_lst)
+void	parse_cmd_heredoc(t_data *data, t_command **last_cmd, t_token **token_lst, int exit_code)
 {
 	t_token		*temp;
 	t_command	*cmd;
@@ -87,7 +87,7 @@ void	parse_cmd_heredoc(t_data *data, t_command **last_cmd, t_token **token_lst)
 		return ;
 	io->infile = get_heredoc_name();
 	io->heredoc_delimiter = get_delim(temp->next->value, &(io->heredoc_quotes));
-	if (get_heredoc(data, io))
+	if (get_heredoc(data, io, exit_code))
 		io->fd_in = open(io->infile, O_RDONLY);
 	else
 		io->fd_in = -1;

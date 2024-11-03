@@ -6,7 +6,7 @@
 /*   By: beyarsla <beyarsla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 16:06:47 by ayirmili          #+#    #+#             */
-/*   Updated: 2024/11/03 18:24:42 by beyarsla         ###   ########.fr       */
+/*   Updated: 2024/11/03 20:21:28 by beyarsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,6 @@
 
 # define COMMAND_NOT_FOUND 127 //bir komut bulunamadığında çıkış kodu 127 döner.
 # define CMD_NOT_EXECUTABLE 126
-
-extern int g_last_exit_code; // global değişken
 
 typedef struct s_token
 {
@@ -129,7 +127,7 @@ void					lst_clear_token(t_token **token_lst, void (*del)(void *));
 void					lst_delone_token(t_token *token_node, void (*del)(void *));
 
 // initialize functions
-int						check_init_data(t_data *data, char **env);
+int						check_init_data(t_data *data, char **env, int exit_code);
 int						init_work_direc(t_data *data);
 int						env_find_index(char **env, char *var);
 char					*env_find_value(char **env, char *var, bool control);
@@ -137,7 +135,7 @@ char					*env_find_value(char **env, char *var, bool control);
 // parser functions
 char					*search_env_var(t_data *data, char *var);
 char					*identify_var(char *str);
-int						parse_input(t_data *data);
+int						parse_input(t_data *data, int exit_code);
 int						tokenizer(t_data *data, char *user_input);
 int						save_word(t_token **token_lst, char *user_input, int index, int start);
 int						save_separator(t_token **token_lst, char *user_input, int index, int type);
@@ -145,21 +143,21 @@ int						check_var(t_token **token_lst);
 int						var_length(char *str);
 int						var_exists(t_data *data, char *var);
 int						handle_replace_var(t_token **token_node, char *var_value, int index);
-void					handle_dollar(t_data *data, t_token **token_lst);
+void					handle_dollar(t_data *data, t_token **token_lst, int exit_code);
 void					change_status_to_quote(t_token **token_node, int *i);
 void					lst_add_back_token(t_token **token_lst, t_token *created_token);
-int						handle_quotes(t_data *data);
+int						handle_quotes(t_data *data, int exit_code);
 int						if_quotes_and_default(t_token **token_node, int i);
 int						change_back_to_default(t_token **token_node, int *i);
 t_token					*lst_new_token(char *value, char *value_backup, int type, int status);
 int						remove_quotes(t_token **token_node);
-char					*recover_val(t_token *token, char *str, t_data *data);
+char					*recover_val(t_token *token, char *str, t_data *data, int exit_code);
 
 //commands functions
 t_command				*lst_last_cmd(t_command *cmd);
 t_command				*lst_new_cmd(bool value);
 void					split_var_cmd_token(t_command *last_cmd, char *cmd_str);
-void					create_commands(t_data *data, t_token *token);
+void					create_commands(t_data *data, t_token *token, int exit_code);
 bool					contains_space(char *str);
 int						fill_args(t_token **token_node, t_command *last_cmd);
 int						create_args_echo_mode(t_token **token_node, t_command *last_cmd);
@@ -170,7 +168,7 @@ int						create_args_default_mode(t_token **token_node, t_command *last_cmd);
 int						remove_old_file_ref(t_io_fds *io, bool infile);
 int						is_next_char_a_sep(char c);
 int						var_between_quotes(char *str, int i);
-int						evaluate_heredoc_line(t_data *data, char **line, t_io_fds *io, bool *return_status);
+int						evaluate_heredoc_line(t_data *data, char **line, bool *return_status, int exit_code);
 char					*join_vars(t_token **token_node);
 char					*erase_and_replace(t_token **token_list, char *str, char *var_value, int index);
 char					*make_str_from_tab(char **tab);
@@ -178,17 +176,17 @@ void					lst_add_back_cmd(t_command **alst, t_command *new_node);
 void					parse_cmd_input(t_command **last_cmd, t_token **token_lst);
 void					parse_cmd_trunc(t_command **last_cmd, t_token **token_lst);
 void					open_outfile_trunc(t_io_fds *io, char *file, char *var_filename);
-void					parse_cmd_heredoc(t_data *data, t_command **last_cmd, t_token **token_lst);
+void					parse_cmd_heredoc(t_data *data, t_command **last_cmd, t_token **token_lst, int exit_code);
 void					parse_cmd_append(t_command **last_cmd, t_token **token_lst);
 void					parse_cmd_pipe(t_command **cmd, t_token **token_lst);
 
 
 // execute functions
 
-int						execute(t_data *data);
-int						execute_builtin(t_data *data, t_command *cmd);
+int						execute(t_data *data, int exit_code);
+int						execute_builtin(t_data *data, t_command *cmd, int exit_code);
 bool					restore_io(t_io_fds *io);
-int						create_children(t_data *data);
+int						create_children(t_data *data, int exit_code);
 bool					check_infile_outfile(t_io_fds *io);
 bool					redirect_io(t_io_fds *io);
 int						execute_local_bin(t_data *data, t_command *cmd);
@@ -214,7 +212,7 @@ int						write_export(t_data *data, char **args);
 int						builtin_export(t_data *data, char **args);
 int						buildin_pwd(t_data *data, char **args);
 int						builtin_unset(t_data *data, char **args);
-int						builtin_exit(t_data *data, char **args);
+int						builtin_exit(t_data *data, char **args, int exit_code);
 int						set_env_var(t_data *data, char *key, char *env_value);
 int						set_export_var(t_data *data, char *key, char *env_value, bool control);
 bool					is_valid_env_key(char *var);

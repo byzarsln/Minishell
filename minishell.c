@@ -6,13 +6,13 @@
 /*   By: beyarsla <beyarsla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 15:36:36 by ayirmili          #+#    #+#             */
-/*   Updated: 2024/11/03 18:59:28 by beyarsla         ###   ########.fr       */
+/*   Updated: 2024/11/03 20:23:03 by beyarsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	mini_interactive(t_data *data)
+void	mini_interactive(t_data *data, int exit_code)
 {
 	while (1)
 	{
@@ -26,10 +26,10 @@ void	mini_interactive(t_data *data)
 		if (*data->user_input)
 		{
             add_history(data->user_input);
-			if(parse_input(data) == SUCCESS)
-				g_last_exit_code = execute(data);
+			if(parse_input(data, exit_code) == SUCCESS)
+				exit_code = execute(data, exit_code);
 			else
-				g_last_exit_code = 1;
+				exit_code = 1;
 			free_data(data,false);
 		}
 	}
@@ -37,6 +37,7 @@ void	mini_interactive(t_data *data)
 
 int	main(int ac, char **av, char **env)
 {
+	int	exit_code;
 	t_data	data;
 
 	ft_memset(&data, 0, sizeof(t_data));
@@ -45,9 +46,9 @@ int	main(int ac, char **av, char **env)
 		perror("This program does not accept arguments\n");
 		exit_shell(NULL, EXIT_FAILURE);
 	}
-	if (!check_init_data(&data, env))
+	if (!check_init_data(&data, env, exit_code))
 		exit_shell(NULL, EXIT_FAILURE);
-	mini_interactive(&data);
-	exit_shell(&data, g_last_exit_code);
+	mini_interactive(&data, exit_code);
+	exit_shell(&data, exit_code);
 	return (0);
 }
