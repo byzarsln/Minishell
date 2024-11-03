@@ -3,24 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beyarsla <beyarsla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayirmili <ayirmili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 14:40:11 by beyza             #+#    #+#             */
-/*   Updated: 2024/11/02 17:30:24 by beyarsla         ###   ########.fr       */
+/*   Updated: 2024/11/03 21:36:33 by ayirmili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int set_env_var(t_data *data, char *key, char *env_value)
+int	set_env_var(t_data *data, char *key, char *env_value)
 {
-	int index;
-	char *tmp;
+	int		index;
+	char	*tmp;
 
 	index = env_find_index(data->env, key);
 	if (env_value == NULL)
 		env_value = "";
-	tmp = ft_strjoin("=", env_value);	
+	tmp = ft_strjoin("=", env_value);
 	if (!tmp)
 		return (FAILURE);
 	if (index != -1 && data->env[index])
@@ -31,7 +31,7 @@ int set_env_var(t_data *data, char *key, char *env_value)
 	else
 	{
 		index = env_counter(data->env);
-		data->env = reallocate_env(data, index + 1, data->env); // Reallocates memory for the global variable g_env_vars. dizinin ortasından tek bir değeri değiştirirken eski verilerin kaybolmaması için bunları kopyalıyoruz.daha düzenli bir yapı yapıyoruz.
+		data->env = reallocate_env(data, index + 1, data->env);
 		if (!data->env)
 			return (FAILURE);
 		data->env[index] = ft_strjoin(key, tmp);
@@ -40,7 +40,7 @@ int set_env_var(t_data *data, char *key, char *env_value)
 	return (SUCCESS);
 }
 
-static void update_work_direc(t_data *data, char *wd)
+static void	update_work_direc(t_data *data, char *wd)
 {
 	set_env_var(data, "OLDPWD", env_find_value(data->env, "PWD", true));
 	set_env_var(data, "PWD", wd);
@@ -57,37 +57,37 @@ static void update_work_direc(t_data *data, char *wd)
 	free_pointr(wd);
 }
 
-int change_dir(t_data *data, char *path)
+int	change_dir(t_data *data, char *path)
 {
-	char *return_status;
-	char *tmp;
-	char cwd[PATH_MAX]; // current work directory
+	char	*return_status;
+	char	*tmp;
+	char	cwd[PATH_MAX];
 
 	return_status = NULL;
-	if (chdir(path) != 0) // chdir verilen dizine geçiş yapmaya çalışır.
+	if (chdir(path) != 0)
 		return (chdir_errno_mod(path));
 	return_status = getcwd(cwd, PATH_MAX);
 	if (!return_status)
 	{
 		errmsg_cmd("cd: error retrieving current directory",
-				   "getcwd: cannot access parent directories",
-				   strerror(errno), errno);
+			"getcwd: cannot access parent directories", strerror(errno), errno);
 		return_status = ft_strjoin(data->work_direc, "/");
 		tmp = return_status;
 		return_status = ft_strjoin(tmp, path);
 		free_pointr(tmp);
 	}
 	else
-		return_status = ft_strdup(cwd); // pwd ve oldpwd nin değişebilmesi için dupını alıyor.
+		return_status = ft_strdup(cwd);
 	update_work_direc(data, return_status);
 	return (SUCCESS);
 }
 
-int builtin_cd(t_data *data, char **args)
+int	builtin_cd(t_data *data, char **args)
 {
-	char *path;
+	char	*path;
 
-	if (!args || !args[1] || is_space(args[1][0]) || args[1][0] == '\0' || ft_strncmp(args[1], "--", 3) == 0) // "cd --" komutu ana dizine (HOME) atar.
+	if (!args || !args[1] || is_space(args[1][0]) || args[1][0] == '\0'
+		|| ft_strncmp(args[1], "--", 3) == 0)
 	{
 		path = env_find_value(data->env, "HOME", true);
 		if (!path || *path == '\0' || is_space(*path))

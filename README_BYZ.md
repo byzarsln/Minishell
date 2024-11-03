@@ -27,6 +27,8 @@
 
  - sinyaller döngü durumlarında işlemiyor(control -c)
  - terminaldeki şapka C işareti kaldırılacak
+ - ctrl+c durumunun heredoc sırasında kontrol edilmesi 
+ - ctrl+c statusünün durmunun 1 olması
  - leakler kontrol edilecek
  <!-- - global exit durumları düzenlenecek --> DONEEEEEEEEEE!
  - control d durumundaki exit yazısı düzeltilecek
