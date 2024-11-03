@@ -6,7 +6,7 @@
 /*   By: beyarsla <beyarsla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 16:06:47 by ayirmili          #+#    #+#             */
-/*   Updated: 2024/11/02 17:30:03 by beyarsla         ###   ########.fr       */
+/*   Updated: 2024/11/03 16:13:40 by beyarsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@
 # define SUCCESS 1
 # define FAILURE 0
 
+
 # define DEFAULT 10
 # define SQUOTE 11
 # define DQUOTE 12
@@ -53,6 +54,8 @@
 # define HEREDOC 19 // <<
 # define APPEND 20 // >>
 # define END 21 // \0
+
+# define DLLR_IN_DQUOTE 22
 
 #define LONG_MAX 9223372036854775807L
 #define LONG_MIN (-LONG_MAX - 1L)
@@ -149,6 +152,7 @@ int						handle_quotes(t_data *data);
 int						if_quotes_and_default(t_token **token_node, int i);
 int						change_back_to_default(t_token **token_node, int *i);
 t_token					*lst_new_token(char *value, char *value_backup, int type, int status);
+int						remove_quotes(t_token **token_node);
 
 //commands functions
 t_command				*lst_last_cmd(t_command *cmd);
