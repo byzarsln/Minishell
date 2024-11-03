@@ -6,7 +6,7 @@
 /*   By: beyarsla <beyarsla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 14:18:34 by beyza             #+#    #+#             */
-/*   Updated: 2024/11/02 17:11:01 by beyarsla         ###   ########.fr       */
+/*   Updated: 2024/11/03 20:22:30 by beyarsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	close_fds(t_command *cmds, bool close_backups)
 	close_pipe_fds(cmds, NULL);
 }
 
-static int	execute_command(t_data *data, t_command *cmd)
+static int	execute_command(t_data *data, t_command *cmd, int exit_code)
 {
 	int	ret;
 
@@ -54,7 +54,7 @@ static int	execute_command(t_data *data, t_command *cmd)
 	close_fds(data->cmd, false);
 	if (ft_strchr(cmd->command, '/') == NULL)
 	{
-		ret = execute_builtin(data, cmd);
+		ret = execute_builtin(data, cmd, exit_code);
 		if (ret != COMMAND_NOT_FOUND)
 			exit_shell(data, ret);
 		ret = execute_sys_bin(data, cmd);
@@ -66,7 +66,7 @@ static int	execute_command(t_data *data, t_command *cmd)
 	return (ret);
 }
 
-int	create_children(t_data *data)
+int	create_children(t_data *data, int exit_code)
 {
 	t_command	*cmd;
 
@@ -77,13 +77,13 @@ int	create_children(t_data *data)
 		if (data->pid == -1)
 			return (errmsg_cmd("fork", NULL, strerror(errno), EXIT_FAILURE));
 		else if (data->pid == 0)
-			execute_command(data, cmd);
+			execute_command(data, cmd, exit_code);
 		cmd = cmd->next;
 	}
 	return (get_children(data));
 }
 
-int	execute_builtin(t_data *data, t_command *cmd)
+int	execute_builtin(t_data *data, t_command *cmd, int exit_code)
 {
 	int	return_status;
 
@@ -101,6 +101,6 @@ int	execute_builtin(t_data *data, t_command *cmd)
 	else if (ft_strncmp(cmd->command, "unset", 6) == 0)
 		return_status = builtin_unset(data, cmd->args);
 	else if (ft_strncmp(cmd->command, "exit", 5) == 0)
-		return_status = builtin_exit(data, cmd->args);
+		return_status = builtin_exit(data, cmd->args, exit_code);
 	return (return_status);
 }

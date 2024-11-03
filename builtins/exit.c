@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayirmili <ayirmili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: beyarsla <beyarsla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 22:07:43 by ayirmili          #+#    #+#             */
-/*   Updated: 2024/11/01 20:44:20 by ayirmili         ###   ########.fr       */
+/*   Updated: 2024/11/03 20:22:30 by beyarsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,12 @@ static int	ft_atoi_long(const char *str, bool *error)
 	return (num * neg);
 }
 
-static int	get_exit_code(char *arg, bool *error)
+static int	get_exit_code(char *arg, bool *error, int exit_code)
 {
 	unsigned long long	i;
 
 	if (!arg)
-		return (g_last_exit_code);
+		return (exit_code);
 	i = 0;
 	while (is_space(arg[i]))
 		i++;
@@ -85,9 +85,9 @@ static bool	is_quiet_mode(t_data *data)
 	return (false);
 }
 
-int	builtin_exit(t_data *data, char **args)
+int	builtin_exit(t_data *data, char **args, int exit_code)
 {
-	int		exit_code;
+	int		exit_return;
 	bool	error;
 	bool	quiet;
 
@@ -96,16 +96,16 @@ int	builtin_exit(t_data *data, char **args)
 	if (!quiet)
 		ft_putendl_fd("exit", 2);
 	if (!args || !args[1])
-		exit_code = g_last_exit_code;
+		exit_return = exit_code;
 	else
 	{
-		exit_code = get_exit_code(args[1], &error);
+		exit_return = get_exit_code(args[1], &error, exit_code);
 		if (error)
-			exit_code = errmsg_cmd("exit", args[1], "numeric argument required",
+			exit_return = errmsg_cmd("exit", args[1], "numeric argument required",
 					2);
 		else if (args[2])
 			return (errmsg_cmd("exit", NULL, "too many arguments", 1));
 	}
-	exit_shell(data, exit_code);
+	exit_shell(data, exit_return);
 	return (2);
 }

@@ -6,7 +6,7 @@
 /*   By: beyarsla <beyarsla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 14:18:14 by ayirmili          #+#    #+#             */
-/*   Updated: 2024/11/03 18:17:53 by beyarsla         ###   ########.fr       */
+/*   Updated: 2024/11/03 20:22:30 by beyarsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	remove_quotes(t_token **token_node)
 	return (0);
 }
 
-int	dollar_check_quote(char *str, t_data *data)
+static int	dollar_check_quote(char *str, t_data *data, int exit_code)
 {
 	int	len;
 	int	i;
@@ -96,13 +96,13 @@ int	dollar_check_quote(char *str, t_data *data)
 	while (str[i])
 	{
 		if (str[i] == '$')
-			handle_dollar(data, &data->token);
+			handle_dollar(data, &data->token, exit_code);
 		i++;
 	}
 	return(SUCCESS);
 }
 
-int	handle_quotes(t_data *data)
+int	handle_quotes(t_data *data, int exit_code)
 {
 	t_token	*temp;
 
@@ -114,7 +114,7 @@ int	handle_quotes(t_data *data)
 				remove_quotes(&temp);
 		else if (temp->type == VAR)
 		{
-			if (dollar_check_quote(temp->value, data) == DLLR_IN_DQUOTE)
+			if (dollar_check_quote(temp->value, data, exit_code) == DLLR_IN_DQUOTE)
 				remove_quotes(&temp);
 		}
 		temp = temp->next;

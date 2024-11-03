@@ -6,13 +6,11 @@
 /*   By: beyarsla <beyarsla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 14:56:08 by beyza             #+#    #+#             */
-/*   Updated: 2024/11/03 18:12:27 by beyarsla         ###   ########.fr       */
+/*   Updated: 2024/11/03 20:22:30 by beyarsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-
-int	g_last_exit_code;
 
 bool	redirect_io(t_io_fds *io)
 {
@@ -85,7 +83,7 @@ static int	check_prep_exec(t_data *data)
 	return (COMMAND_NOT_FOUND);
 }
 
-int	execute(t_data *data)
+int	execute(t_data *data, int exit_code)
 {
 	int	return_status;
 
@@ -96,10 +94,10 @@ int	execute(t_data *data)
 		&& check_inoutfile(data->cmd->io_fds))
 	{
 		redirect_io(data->cmd->io_fds);
-		return_status = execute_builtin(data, data->cmd);
+		return_status = execute_builtin(data, data->cmd, exit_code);
 		restore_io(data->cmd->io_fds);
 	}
 	if (return_status != COMMAND_NOT_FOUND)
 		return (return_status);
-	return (create_children(data));
+	return (create_children(data, exit_code));
 }
