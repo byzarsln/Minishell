@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_word_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayirmili <ayirmili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: beyarsla <beyarsla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 17:19:30 by beyarsla          #+#    #+#             */
-/*   Updated: 2024/11/02 20:04:06 by ayirmili         ###   ########.fr       */
+/*   Updated: 2024/11/04 15:38:40 by beyarsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ int	add_args_echo_mode(t_token **token_node, t_command *last_cmd)
 	temp = *token_node;
 	nb_args = count_args(temp);
 	len = 0;
-	printf("len %d, \n", len);
 	while (last_cmd->args[len])
 		len++;
 	new_tab = malloc(sizeof(char *) * (nb_args + len + 1));

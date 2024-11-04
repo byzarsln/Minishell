@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayirmili <ayirmili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: beyarsla <beyarsla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 22:07:43 by ayirmili          #+#    #+#             */
-/*   Updated: 2024/11/03 21:39:16 by ayirmili         ###   ########.fr       */
+/*   Updated: 2024/11/04 15:46:47 by beyarsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int	builtin_exit(t_data *data, char **args, int exit_code)
 		exit_return = get_exit_code(args[1], &error, exit_code);
 		if (error)
 			exit_return = errmsg_cmd("exit", args[1], \
-			"numeric argument required", 2);
+			"numeric argument required", 255);
 		else if (args[2])
 			return (errmsg_cmd("exit", NULL, "too many arguments", 1));
 	}
