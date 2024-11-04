@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayirmili <ayirmili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: beyarsla <beyarsla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 13:47:54 by ayirmili          #+#    #+#             */
-/*   Updated: 2024/11/03 21:45:39 by ayirmili         ###   ########.fr       */
+/*   Updated: 2024/11/04 16:42:14 by beyarsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ static int	check_init_env(t_data *data, char **env)
 	return (1);
 }
 
-int	check_init_data(t_data *data, char **env, int exit_code)
+int	check_init_data(t_data *data, char **env)
 {
 	if (!check_init_env(data, env))
 	{
@@ -122,6 +122,5 @@ int	check_init_data(t_data *data, char **env, int exit_code)
 	data->pid = -1;
 	data->token = NULL;
 	data->user_input = NULL;
-	exit_code = 0;
 	return (1);
 }

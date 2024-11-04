@@ -34,3 +34,7 @@
  <!-- - global exit durumları düzenlenecek --> DONEEEEEEEEEE!
  - control d durumundaki exit yazısı düzeltilecek
  <!-- - çıkışlardaki statusler kontrol edilecek --> DONE
+
+
+ - lst_delone lardaki kullanılmayan void(*del) fonksiyonların silinmesi gerekiyor.
+ - wall wextra werror ile kontrol et
