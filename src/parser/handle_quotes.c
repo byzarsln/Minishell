@@ -6,7 +6,7 @@
 /*   By: beyarsla <beyarsla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 14:18:14 by ayirmili          #+#    #+#             */
-/*   Updated: 2024/11/03 20:22:30 by beyarsla         ###   ########.fr       */
+/*   Updated: 2024/11/04 17:39:53 by beyarsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,28 @@ int	remove_quotes(t_token **token_node)
 	return (0);
 }
 
+int	remove_quotes_for_squote(t_token **input)
+{
+	int	len;
+	int i;
+	int j;
+	char	*new_line;
+
+	i = 1;
+	j = 0;
+	len = ft_strlen((*input)->value);
+	new_line = malloc(sizeof(char) * len - 1);
+	if (!new_line)
+		return (1);
+	while((*input)->value[i] && i != (len - 1))
+		new_line[j++] = (*input)->value[i++];
+	new_line[j] = '\0';
+	free_pointr((*input)->value);
+	(*input)->value = new_line;
+	(*input)->join = true;
+	return (0);
+}
+
 static int	dollar_check_quote(char *str, t_data *data, int exit_code)
 {
 	int	len;
@@ -93,6 +115,8 @@ static int	dollar_check_quote(char *str, t_data *data, int exit_code)
 	i = 0;
 	if (str[0] == '\"' && str[len -1] == '\"')
 		return (DLLR_IN_DQUOTE);
+	else if (str[0] == '\'' && str[len -1] == '\'')
+		return (DLLR_IN_SQUOTE);
 	while (str[i])
 	{
 		if (str[i] == '$')
@@ -101,6 +125,7 @@ static int	dollar_check_quote(char *str, t_data *data, int exit_code)
 	}
 	return(SUCCESS);
 }
+
 
 int	handle_quotes(t_data *data, int exit_code)
 {
@@ -114,8 +139,10 @@ int	handle_quotes(t_data *data, int exit_code)
 				remove_quotes(&temp);
 		else if (temp->type == VAR)
 		{
-			if (dollar_check_quote(temp->value, data, exit_code) == DLLR_IN_DQUOTE)
+			if (dollar_check_quote(temp->value_backup, data, exit_code) == DLLR_IN_DQUOTE)
 				remove_quotes(&temp);
+			else if (dollar_check_quote(temp->value_backup, data, exit_code) == DLLR_IN_SQUOTE)
+				remove_quotes_for_squote(&temp);
 		}
 		temp = temp->next;
 	}

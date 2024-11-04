@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayirmili <ayirmili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: beyarsla <beyarsla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 16:06:47 by ayirmili          #+#    #+#             */
-/*   Updated: 2024/11/03 21:28:48 by ayirmili         ###   ########.fr       */
+/*   Updated: 2024/11/04 17:40:12 by beyarsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@
 # define END 21 // \0
 
 # define DLLR_IN_DQUOTE 22
+# define DLLR_IN_SQUOTE 23
 
 #define LONG_MAX 9223372036854775807L
 #define LONG_MIN (-LONG_MAX - 1L)
@@ -127,7 +128,7 @@ void					lst_clear_token(t_token **token_lst, void (*del)(void *));
 void					lst_delone_token(t_token *token_node, void (*del)(void *));
 
 // initialize functions
-int						check_init_data(t_data *data, char **env, int exit_code);
+int						check_init_data(t_data *data, char **env);
 int						init_work_direc(t_data *data);
 int						env_find_index(char **env, char *var);
 char					*env_find_value(char **env, char *var, bool control);
