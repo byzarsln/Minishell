@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beyarsla <beyarsla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: beyza <beyza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 13:39:05 by ayirmili          #+#    #+#             */
-/*   Updated: 2024/11/04 16:49:22 by beyarsla         ###   ########.fr       */
+/*   Updated: 2024/11/05 15:44:07 by beyza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,21 @@
 
 void	sigint_reset(int signal_no)
 {
-	(void)signal_no;
-	write(1, "\n", 1);
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
+	if (global_signal == IN_CAT)
+	{
+		write(1, "\n", 1);
+		rl_on_new_line();
+		global_signal = 13;
+	}
+	else
+	{
+		(void)signal_no;
+		write(1, "\n", 1);
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
+		global_signal = 17;
+	}
 }
 
 void	ignore_sigquit(void)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beyarsla <beyarsla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: beyza <beyza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 15:36:36 by ayirmili          #+#    #+#             */
-/*   Updated: 2024/11/04 16:43:51 by beyarsla         ###   ########.fr       */
+/*   Updated: 2024/11/05 15:43:29 by beyza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,23 @@ void	mini_interactive(t_data *data, int exit_code)
 {
 	while (1)
 	{
+		global_signal = 0;
 		set_signals();
 		data->user_input = readline(PROMPT);
 		if (!data->user_input)
 		{
 			ft_putendl_fd("exit", 2);
 			break ;
+		}
+		if (global_signal == 17)
+		{
+			exit_code = 1;
+			global_signal = 0;
+		}
+		if (global_signal == 13)
+		{
+			exit_code = 130;
+			global_signal = 0;
 		}
 		if (*data->user_input)
 		{

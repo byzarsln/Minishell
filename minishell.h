@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beyarsla <beyarsla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: beyza <beyza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 16:06:47 by ayirmili          #+#    #+#             */
-/*   Updated: 2024/11/04 18:07:14 by beyarsla         ###   ########.fr       */
+/*   Updated: 2024/11/05 15:32:06 by beyza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,10 @@
 
 # define COMMAND_NOT_FOUND 127 //bir komut bulunamadığında çıkış kodu 127 döner.
 # define CMD_NOT_EXECUTABLE 126
+
+int global_signal;
+
+# define IN_CAT 2
 
 typedef struct s_token
 {

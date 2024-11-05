@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beyarsla <beyarsla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: beyza <beyza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 14:18:34 by beyza             #+#    #+#             */
-/*   Updated: 2024/11/03 20:22:30 by beyarsla         ###   ########.fr       */
+/*   Updated: 2024/11/05 15:36:53 by beyza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ int	create_children(t_data *data, int exit_code)
 	t_command	*cmd;
 
 	cmd = data->cmd;
+	global_signal = IN_CAT;
+
 	while (data->pid != 0 && cmd)
 	{
 		data->pid = fork();
