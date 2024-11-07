@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beyarsla <beyarsla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayirmili <ayirmili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 14:40:11 by beyza             #+#    #+#             */
-/*   Updated: 2024/11/04 18:05:44 by beyarsla         ###   ########.fr       */
+/*   Updated: 2024/11/07 19:46:45 by ayirmili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,8 @@ int	builtin_cd(t_data *data, char **args)
 	char	*path;
 
 	if (!args || !args[1] || is_space(args[1][0]) || args[1][0] == '\0'
-		|| ft_strncmp(args[1], "--", 3) == 0 || ft_strncmp(args[1], "~", 2) == 0)
+		|| ft_strncmp(args[1], "--", 3) == 0 || ft_strncmp(args[1], "~", \
+			2) == 0)
 	{
 		path = env_find_value(data->env, "HOME", true);
 		if (!path || *path == '\0' || is_space(*path))

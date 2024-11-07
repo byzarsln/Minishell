@@ -6,19 +6,20 @@
 /*   By: ayirmili <ayirmili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 18:31:19 by beyarsla          #+#    #+#             */
-/*   Updated: 2024/11/03 21:39:30 by ayirmili         ###   ########.fr       */
+/*   Updated: 2024/11/07 20:20:52 by ayirmili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int set_export_var(t_data *data, char *key, char *env_value, bool control)
+int	set_export_var(t_data *data, char *key, char *env_value, bool control)
 {
-	int index;
-	char *tmp;
+	int		index;
+	char	*tmp;
 
 	index = env_find_index(data->export_env, key);
-	if (control == false && env_find_value(data->export_env, key, control) != NULL)
+	if (control == false && env_find_value(data->export_env, key,
+			control) != NULL)
 		return (SUCCESS);
 	if (env_value == NULL)
 		env_value = "";
@@ -68,7 +69,6 @@ int	write_export(t_data *data, char **args)
 			else
 				printf("declare -x %s\n", key_value[0]);
 		}
-
 		if (key_value)
 		{
 			free(key_value[0]);
@@ -101,12 +101,14 @@ static char	**get_key_value_pair(char *arg)
 	char	**tmp;
 	char	*eq_pos;
 
+	
 	eq_pos = ft_strchr(arg, '=');
-	tmp = malloc(sizeof * tmp * (2 + 1));
+	tmp = malloc(sizeof *tmp * (2 + 1));
 	tmp[0] = ft_substr(arg, 0, eq_pos - arg);
-	tmp[1] = ft_substr(eq_pos, 1, ft_strlen(eq_pos));
-    if (*(eq_pos + 1) == '\0')
-        tmp[1] = NULL;
+	if (*(eq_pos + 1) == '\0')
+		tmp[1] = NULL;
+	else
+		tmp[1] = ft_substr(eq_pos + 1, 0, ft_strlen(eq_pos + 1));
 	tmp[2] = NULL;
 	return (tmp);
 }
@@ -119,7 +121,6 @@ int	builtin_export(t_data *data, char **args)
 
 	return_status = EXIT_SUCCESS;
 	i = 1;
-
 	if (!args[i])
 		return (write_export(data, NULL));
 	while (args[i])
@@ -136,7 +137,7 @@ int	builtin_export(t_data *data, char **args)
 			set_export_var(data, tmp[0], tmp[1], true);
 			free_str_tab(tmp);
 		}
-		else if(ft_strchr(args[i], '=') == NULL)
+		else if (ft_strchr(args[i], '=') == NULL)
 			set_export_var(data, args[i], NULL, false);
 		i++;
 	}
