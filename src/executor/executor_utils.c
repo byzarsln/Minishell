@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beyza <beyza@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ayirmili <ayirmili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 14:18:34 by beyza             #+#    #+#             */
-/*   Updated: 2024/11/05 15:36:53 by beyza            ###   ########.fr       */
+/*   Updated: 2024/11/07 12:59:58 by ayirmili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ void	close_fds(t_command *cmds, bool close_backups)
 static int	execute_command(t_data *data, t_command *cmd, int exit_code)
 {
 	int	ret;
-
 	if (!cmd || !cmd->command)
 		exit_shell(data, errmsg_cmd("child", NULL,
 				"parsing error: no command to execute!", EXIT_FAILURE));

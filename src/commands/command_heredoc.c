@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_heredoc.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beyarsla <beyarsla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayirmili <ayirmili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 21:29:12 by beyza             #+#    #+#             */
-/*   Updated: 2024/11/04 16:52:31 by beyarsla         ###   ########.fr       */
+/*   Updated: 2024/11/07 18:25:09 by ayirmili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,22 +41,72 @@ static char	*get_delim(char *delim, bool *quotes)
 	return (ft_strdup(delim));
 }
 
+// int	take_status(t_command *cmd, t_io_fds *files, int pid, int exit_code)
+// {
+// 	int	status;
+
+// 	global_signal = 0;
+// 	waitpid(pid, &status, 0);
+// 	if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
+// 		exit_code = 1;
+// 	else
+// 		exit_code = WEXITSTATUS(status);
+// 	close(files->fd_in);
+// 	if (exit_code != 0)
+// 		return (3);
+// 	else
+// 		return (0);
+// }
+
+
+int	take_status(t_command *cmd, t_io_fds *files, int pid, int exit_code)
+{
+	int	status;
+
+	global_signal = 2;
+	waitpid(pid, &status, 0);
+	if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
+		exit_code = 1;
+	else
+		exit_code = WEXITSTATUS(status);
+	if (exit_code != 0)
+		return (3);
+	else
+		return (0);
+}
+
 bool	heredoc_process(t_data *data, t_io_fds *io, int fd, int exit_code)
 {
+	int		pid;
 	char	*line;
 	bool	return_status;
 
+	pid = fork();
 	return_status = false;
 	line = NULL;
-	while (1)
+	if (pid == -1)
 	{
-		set_signals();
-		line = readline(">");
-		if (!evaluate_heredoc_line(data, &line, &return_status, exit_code))
-			break ;
-		ft_putendl_fd(line, fd);
-		free_pointr(line);
+		perror("fork");
+		return (return_status);
 	}
+	if (pid == 0)
+	{
+		global_signal = HEREDOC;
+		while (1)
+		{
+			line = readline(">");
+			if (!evaluate_heredoc_line(data, &line, &return_status, exit_code))
+				break ;
+			ft_putendl_fd(line, fd);
+			free_pointr(line);
+		}
+	}
+	else
+	{
+		global_signal = 2;
+		waitpid(pid, NULL, 0);
+	}
+	
 	free_pointr(line);
 	return (return_status);
 }
