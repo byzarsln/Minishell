@@ -6,7 +6,7 @@
 /*   By: ayirmili <ayirmili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 20:48:40 by ayirmili          #+#    #+#             */
-/*   Updated: 2024/11/03 21:52:00 by ayirmili         ###   ########.fr       */
+/*   Updated: 2024/11/07 16:32:09 by ayirmili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,12 @@ static int	check_command_not_found(t_data *data, t_command *cmd)
 {
 	if (ft_strchr(cmd->command, '/') == NULL
 		&& get_env_var_index(data->env, "PATH") != -1)
-		return (errmsg_cmd(cmd->command, NULL, "command not found",
-				COMMAND_NOT_FOUND));
+		{
+			if (!cmd->command || cmd->command == NULL || cmd->command[0] == '\0')
+				exit_shell(data, 0); // TODO burada olmayan $ durumu kontrol ediliyor örnek; $EMPTY, $asdasdasd
+			return (errmsg_cmd(cmd->command, NULL, "command not found",
+					COMMAND_NOT_FOUND));
+		}
 	if (access(cmd->command, F_OK) != 0)
 		return (errmsg_cmd(cmd->command, NULL, strerror(errno), \
 			COMMAND_NOT_FOUND));

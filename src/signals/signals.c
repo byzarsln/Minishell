@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beyza <beyza@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ayirmili <ayirmili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 13:39:05 by ayirmili          #+#    #+#             */
-/*   Updated: 2024/11/05 15:44:07 by beyza            ###   ########.fr       */
+/*   Updated: 2024/11/07 17:20:43 by ayirmili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,10 @@ void	sigint_reset(int signal_no)
 		write(1, "\n", 1);
 		rl_on_new_line();
 		global_signal = 13;
+	}
+	else if (global_signal == HEREDOC)
+	{
+		exit(1);
 	}
 	else
 	{
