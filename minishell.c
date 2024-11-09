@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayirmili <ayirmili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: beyarsla <beyarsla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 15:36:36 by ayirmili          #+#    #+#             */
-/*   Updated: 2024/11/07 16:01:09 by ayirmili         ###   ########.fr       */
+/*   Updated: 2024/11/08 15:27:04 by beyarsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	mini_interactive(t_data *data, int exit_code)
 {
 	while (1)
 	{
-		global_signal = 0;
+		g_global_signal = 0;
 		set_signals();
 		data->user_input = readline(PROMPT);
 		if (!data->user_input)
@@ -24,32 +24,25 @@ void	mini_interactive(t_data *data, int exit_code)
 			ft_putendl_fd("exit", 2);
 			break ;
 		}
-		if (global_signal == 17)
-		{
-			exit_code = 1;
-			global_signal = 0;
-		}
-		if (global_signal == 13)
-		{
-			exit_code = 130;
-			global_signal = 0;
-		}
+		exit_code = main_signal_control(exit_code);
 		if (*data->user_input)
 		{
-            add_history(data->user_input);
-			if(parse_input(data, exit_code) == SUCCESS)
+			add_history(data->user_input);
+			if (parse_input(data, exit_code) == SUCCESS)
 				exit_code = execute(data, exit_code);
 			else
 				exit_code = 1;
-			free_data(data,false);
+			free_data(data, false);
 		}
+		else
+			free_data(data, false);
 	}
 }
 
 int	main(int ac, char **av, char **env)
 {
 	t_data	data;
-	int	exit_code;
+	int		exit_code;
 
 	exit_code = 0;
 	(void)av;

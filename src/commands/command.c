@@ -6,7 +6,7 @@
 /*   By: ayirmili <ayirmili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 16:24:52 by beyarsla          #+#    #+#             */
-/*   Updated: 2024/11/03 21:48:58 by ayirmili         ###   ########.fr       */
+/*   Updated: 2024/11/08 14:23:06 by ayirmili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,9 @@ void	parse_cmd_word(t_command **cmd, t_token **token_lst)
 			|| last_cmd->command == NULL)
 		{
 			if (temp->type == VAR && contains_space(temp->value))
+			{
 				split_var_cmd_token(last_cmd, temp->value);
+			}
 			else
 				last_cmd->command = ft_strdup(temp->value);
 			temp = temp->next;

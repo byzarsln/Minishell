@@ -10,8 +10,9 @@ src/errors/error.c src/commands/command_heredoc.c src/commands/command_heredoc2.
 src/commands/command_append.c src/commands/command_pipe.c src/executor/executor.c src/executor/executor_utils.c \
 builtins/cd.c builtins/cd_utils.c builtins/echo.c builtins/env.c builtins/export.c builtins/pwd.c \
 builtins/unset.c builtins/exit.c src/executor/execute_cmd.c src/executor/execute_cmd_utils.c src/executor/execute_cmd_utils2.c\
+builtins/export_utils.c
 
-CFLAGS = #-Wall -Wextra -Werror -g -fsanitize=address # MallocStackLogging=1
+CFLAGS = -Wall -Wextra -Werror -g
 LIBFT = lib/libft/libft.a
 READLINE = lib/readline/lib/libreadline.a
 

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   initialize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beyarsla <beyarsla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayirmili <ayirmili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 13:47:54 by ayirmili          #+#    #+#             */
-/*   Updated: 2024/11/04 16:42:14 by beyarsla         ###   ########.fr       */
+/*   Updated: 2024/11/07 21:00:28 by ayirmili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	*env_find_value(char **env, char *var, bool control)
+char	*env_find_value(char **env, char *var)
 {
 	int		i;
 	char	*tmp;
@@ -70,7 +70,7 @@ int	init_work_direc(t_data *data)
 	if (env_find_index(data->env, "OLDPWD") != -1)
 	{
 		data->old_work_direc = ft_strdup(env_find_value(data->env, \
-			"OLDPWD", true));
+			"OLDPWD"));
 		if (!data->old_work_direc)
 			return (0);
 	}

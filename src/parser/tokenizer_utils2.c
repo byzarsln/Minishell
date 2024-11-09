@@ -6,11 +6,29 @@
 /*   By: ayirmili <ayirmili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 13:26:10 by beyarsla          #+#    #+#             */
-/*   Updated: 2024/11/02 20:58:02 by ayirmili         ###   ########.fr       */
+/*   Updated: 2024/11/07 22:31:16 by ayirmili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+
+int	handle_heredoc_append(t_token **token_lst, char *user_input, int index,
+		int type)
+{
+	int		i;
+	char	*seperator;
+
+	i = 0;
+	seperator = malloc(sizeof(char) * 3);
+	if (!seperator)
+		return (FAILURE);
+	while (i < 2)
+		seperator[i++] = user_input[index++];
+	seperator[i] = '\0';
+	lst_add_back_token(token_lst, lst_new_token(seperator, NULL, type,
+			DEFAULT));
+	return (SUCCESS);
+}
 
 int	consec_define(t_token *temp_token)
 {

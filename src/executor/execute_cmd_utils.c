@@ -6,7 +6,7 @@
 /*   By: ayirmili <ayirmili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 20:57:52 by ayirmili          #+#    #+#             */
-/*   Updated: 2024/11/07 17:25:38 by ayirmili         ###   ########.fr       */
+/*   Updated: 2024/11/07 22:23:37 by ayirmili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,6 @@ int	get_env_var_index(char **env, char *var)
 	if (!tmp)
 		return (-1);
 	i = 0;
-
 	while (env[i])
 	{
 		if (ft_strncmp(tmp, env[i], ft_strlen(tmp)) == 0)

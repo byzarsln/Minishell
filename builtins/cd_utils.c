@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayirmili <ayirmili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: beyarsla <beyarsla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/29 17:08:12 by beyza             #+#    #+#             */
-/*   Updated: 2024/11/07 19:23:41 by ayirmili         ###   ########.fr       */
+/*   Created: 2024/11/08 12:04:08 by beyarsla          #+#    #+#             */
+/*   Updated: 2024/11/08 12:04:16 by beyarsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	is_space(int c)
 	return (0);
 }
 
-char	**reallocate_env(t_data *data, int size, char **data_env)
+char	**reallocate_env(int size, char **data_env)
 {
 	char	**new_env;
 	int		i;

@@ -6,11 +6,25 @@
 /*   By: ayirmili <ayirmili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 14:49:05 by ayirmili          #+#    #+#             */
-/*   Updated: 2024/10/25 22:05:48 by ayirmili         ###   ########.fr       */
+/*   Updated: 2024/11/07 22:25:49 by ayirmili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+
+int	is_any_quotes(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '\'' || str[i] == '\"')
+			return (SUCCESS);
+		i++;
+	}
+	return (FAILURE);
+}
 
 int	if_quotes_and_default(t_token **token_node, int i)
 {

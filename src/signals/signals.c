@@ -3,24 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayirmili <ayirmili@student.42.fr>          +#+  +:+       +#+        */
+/*   By: beyarsla <beyarsla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 13:39:05 by ayirmili          #+#    #+#             */
-/*   Updated: 2024/11/07 17:20:43 by ayirmili         ###   ########.fr       */
+/*   Updated: 2024/11/08 14:36:52 by beyarsla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
+int	main_signal_control(int exit_code)
+{
+	if (g_global_signal == 17)
+	{
+		exit_code = 1;
+		g_global_signal = 0;
+	}
+	if (g_global_signal == 13)
+	{
+		exit_code = 130;
+		g_global_signal = 0;
+	}
+	return (exit_code);
+}
+
 void	sigint_reset(int signal_no)
 {
-	if (global_signal == IN_CAT)
+	if (g_global_signal == IN_CAT)
 	{
 		write(1, "\n", 1);
 		rl_on_new_line();
-		global_signal = 13;
+		g_global_signal = 13;
 	}
-	else if (global_signal == HEREDOC)
+	else if (g_global_signal == HEREDOC)
 	{
 		exit(1);
 	}
@@ -31,7 +46,7 @@ void	sigint_reset(int signal_no)
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
-		global_signal = 17;
+		g_global_signal = 17;
 	}
 }
 
@@ -47,7 +62,7 @@ void	ignore_sigquit(void)
 void	set_signals(void)
 {
 	struct sigaction	signl;
-	
+
 	ignore_sigquit();
 	ft_memset(&signl, 0, sizeof(signl));
 	signl.sa_handler = &sigint_reset;

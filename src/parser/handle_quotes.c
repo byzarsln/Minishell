@@ -3,28 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   handle_quotes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beyarsla <beyarsla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayirmili <ayirmili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 14:18:14 by ayirmili          #+#    #+#             */
-/*   Updated: 2024/11/04 17:39:53 by beyarsla         ###   ########.fr       */
+/*   Updated: 2024/11/07 22:25:45 by ayirmili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-
-static int	is_any_quotes(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '\'' || str[i] == '\"')
-			return (SUCCESS);
-		i++;
-	}
-	return (FAILURE);
-}
 
 static int	count_len(char *str, int count, int i)
 {
@@ -86,9 +72,9 @@ int	remove_quotes(t_token **token_node)
 
 int	remove_quotes_for_squote(t_token **input)
 {
-	int	len;
-	int i;
-	int j;
+	int		len;
+	int		i;
+	int		j;
 	char	*new_line;
 
 	i = 1;
@@ -97,7 +83,7 @@ int	remove_quotes_for_squote(t_token **input)
 	new_line = malloc(sizeof(char) * len - 1);
 	if (!new_line)
 		return (1);
-	while((*input)->value[i] && i != (len - 1))
+	while ((*input)->value[i] && i != (len - 1))
 		new_line[j++] = (*input)->value[i++];
 	new_line[j] = '\0';
 	free_pointr((*input)->value);
@@ -113,9 +99,9 @@ static int	dollar_check_quote(char *str, t_data *data, int exit_code)
 
 	len = ft_strlen(str);
 	i = 0;
-	if (str[0] == '\"' && str[len -1] == '\"')
+	if (str[0] == '\"' && str[len - 1] == '\"')
 		return (DLLR_IN_DQUOTE);
-	else if (str[0] == '\'' && str[len -1] == '\'')
+	else if (str[0] == '\'' && str[len - 1] == '\'')
 		return (DLLR_IN_SQUOTE);
 	while (str[i])
 	{
@@ -123,9 +109,8 @@ static int	dollar_check_quote(char *str, t_data *data, int exit_code)
 			handle_dollar(data, &data->token, exit_code);
 		i++;
 	}
-	return(SUCCESS);
+	return (SUCCESS);
 }
-
 
 int	handle_quotes(t_data *data, int exit_code)
 {
@@ -134,14 +119,17 @@ int	handle_quotes(t_data *data, int exit_code)
 	temp = data->token;
 	while (temp)
 	{
-		if (is_any_quotes(temp->value) == SUCCESS && (!temp->prev || (temp->prev
-					&& temp->prev->type != HEREDOC) && temp->type != VAR))
-				remove_quotes(&temp);
+		if ((is_any_quotes(temp->value) == SUCCESS) && ((!temp->prev
+					|| (temp->prev && temp->prev->type != HEREDOC))
+				&& (temp->type != VAR)))
+			remove_quotes(&temp);
 		else if (temp->type == VAR)
 		{
-			if (dollar_check_quote(temp->value_backup, data, exit_code) == DLLR_IN_DQUOTE)
+			if (dollar_check_quote(temp->value_backup, data,
+					exit_code) == DLLR_IN_DQUOTE)
 				remove_quotes(&temp);
-			else if (dollar_check_quote(temp->value_backup, data, exit_code) == DLLR_IN_SQUOTE)
+			else if (dollar_check_quote(temp->value_backup, data,
+					exit_code) == DLLR_IN_SQUOTE)
 				remove_quotes_for_squote(&temp);
 		}
 		temp = temp->next;

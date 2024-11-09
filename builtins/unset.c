@@ -6,7 +6,7 @@
 /*   By: ayirmili <ayirmili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 21:58:08 by ayirmili          #+#    #+#             */
-/*   Updated: 2024/11/02 18:06:34 by ayirmili         ###   ########.fr       */
+/*   Updated: 2024/11/07 22:10:24 by ayirmili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static bool	remove_export_var(t_data *data, int idx)
 		count++;
 		i++;
 	}
-	data->export_env = reallocate_env(data, count, data->export_env);
+	data->export_env = reallocate_env(count, data->export_env);
 	if (!data->env)
 		return (false);
 	return (true);
@@ -52,37 +52,42 @@ static bool	remove_env_var(t_data *data, int idx)
 		count++;
 		i++;
 	}
-	data->env = reallocate_env(data, count, data->env);
+	data->env = reallocate_env(count, data->env);
 	if (!data->env)
 		return (false);
 	return (true);
 }
 
+static int	unset_var(t_data *data, char *arg)
+{
+	int	idx;
+	int	idx1;
+
+	if (!is_valid_env_key(arg) || ft_strchr(arg, '=') != NULL)
+	{
+		errmsg_cmd("unset", arg, "not a valid identifier", false);
+		return (EXIT_FAILURE);
+	}
+	idx = env_find_index(data->env, arg);
+	idx1 = env_find_index(data->export_env, arg);
+	if (idx != -1)
+		remove_env_var(data, idx);
+	if (idx1 != -1)
+		remove_export_var(data, idx1);
+	return (EXIT_SUCCESS);
+}
+
 int	builtin_unset(t_data *data, char **args)
 {
 	int	i;
-	int	idx;
-	int	idx1;
 	int	ret;
 
-	ret = EXIT_SUCCESS;
 	i = 1;
+	ret = EXIT_SUCCESS;
 	while (args[i])
 	{
-		if (!is_valid_env_key(args[i]) || ft_strchr(args[i], '=') != NULL)
-		{
-			errmsg_cmd("unset", args[i], "not a valid identifier", false);
+		if (unset_var(data, args[i]) == EXIT_FAILURE)
 			ret = EXIT_FAILURE;
-		}
-		else
-		{
-			idx = env_find_index(data->env, args[i]);
-			idx1 = env_find_index(data->export_env, args[i]);
-			if (idx != -1)
-				remove_env_var(data, idx);
-			if (idx1 != -1)
-				remove_export_var(data, idx1);
-		}
 		i++;
 	}
 	return (ret);

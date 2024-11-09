@@ -6,7 +6,7 @@
 /*   By: ayirmili <ayirmili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 15:34:51 by beyarsla          #+#    #+#             */
-/*   Updated: 2024/11/03 21:43:27 by ayirmili         ###   ########.fr       */
+/*   Updated: 2024/11/07 20:59:05 by ayirmili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,12 @@ void	lst_delone_token(t_token *token_node, void (*del)(void *))
 {
 	if (token_node && token_node->value)
 	{
-		free(token_node->value);
+		(*del)(token_node->value);
 		token_node->value = NULL;
 	}
 	if (token_node && token_node->value_backup)
 	{
-		free(token_node->value_backup);
+		(*del)(token_node->value_backup);
 		token_node->value_backup = NULL;
 	}
 	if (token_node->prev)

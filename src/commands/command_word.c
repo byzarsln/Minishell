@@ -6,7 +6,7 @@
 /*   By: ayirmili <ayirmili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 17:10:24 by beyarsla          #+#    #+#             */
-/*   Updated: 2024/11/02 20:08:38 by ayirmili         ###   ########.fr       */
+/*   Updated: 2024/11/08 14:18:33 by ayirmili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	split_var_cmd_token(t_command *last_cmd, char *cmd_str)
 
 	new_tokens = NULL;
 	strs = ft_split(cmd_str, ' ');
-	if (!strs)
+	if (!strs || strs[0] == NULL)
 		return ;
 	last_cmd->command = ft_strdup(strs[0]);
 	if (strs[1])

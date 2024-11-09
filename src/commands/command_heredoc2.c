@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ayirmili <ayirmili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/26 23:59:49 by beyza             #+#    #+#             */
-/*   Updated: 2024/11/07 18:23:25 by ayirmili         ###   ########.fr       */
+/*   Created: 2024/11/08 12:05:29 by beyarsla          #+#    #+#             */
+/*   Updated: 2024/11/08 13:51:01 by ayirmili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,14 +96,12 @@ int	evaluate_heredoc_line(t_data *data, char **line, bool *return_status,
 		errmsg_cmd("warning", "here-document delimited by end-of-file: wanted",
 			data->cmd->io_fds->heredoc_delimiter, true);
 		*return_status = true;
-		exit(1);
 		return (FAILURE);
 	}
 	if (ft_strncmp(*line, data->cmd->io_fds->heredoc_delimiter,
 			ft_strlen(*line)) == 0 && *line[0] != '\0')
 	{
 		*return_status = true;
-		exit(1);
 		return (FAILURE);
 	}
 	if (data->cmd->io_fds->heredoc_quotes == false && ft_strchr(*line, '$'))
@@ -113,7 +111,6 @@ int	evaluate_heredoc_line(t_data *data, char **line, bool *return_status,
 		{
 			free_pointr(*line);
 			*return_status = false;
-			exit(1);
 			return (FAILURE);
 		}
 	}

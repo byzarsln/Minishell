@@ -6,7 +6,7 @@
 /*   By: ayirmili <ayirmili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 18:20:56 by beyarsla          #+#    #+#             */
-/*   Updated: 2024/11/03 21:37:09 by ayirmili         ###   ########.fr       */
+/*   Updated: 2024/11/07 21:08:27 by ayirmili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ int	builtin_env(t_data *data, char **args)
 {
 	int		i;
 	char	*tmp;
-	char	**key_value;
 
 	if (args && args[1])
 		return (errmsg_cmd("env", NULL, "too many arguments", 2));

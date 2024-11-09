@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ayirmili <ayirmili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/29 14:40:11 by beyza             #+#    #+#             */
-/*   Updated: 2024/11/07 19:46:45 by ayirmili         ###   ########.fr       */
+/*   Created: 2024/11/08 12:04:35 by beyarsla          #+#    #+#             */
+/*   Updated: 2024/11/08 12:50:31 by ayirmili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	set_env_var(t_data *data, char *key, char *env_value)
 	else
 	{
 		index = env_counter(data->env);
-		data->env = reallocate_env(data, index + 1, data->env);
+		data->env = reallocate_env(index + 1, data->env);
 		if (!data->env)
 			return (FAILURE);
 		data->env[index] = ft_strjoin(key, tmp);
@@ -42,7 +42,7 @@ int	set_env_var(t_data *data, char *key, char *env_value)
 
 static void	update_work_direc(t_data *data, char *wd)
 {
-	set_env_var(data, "OLDPWD", env_find_value(data->env, "PWD", true));
+	set_env_var(data, "OLDPWD", env_find_value(data->env, "PWD"));
 	set_env_var(data, "PWD", wd);
 	if (data->old_work_direc)
 	{
@@ -90,16 +90,14 @@ int	builtin_cd(t_data *data, char **args)
 		|| ft_strncmp(args[1], "--", 3) == 0 || ft_strncmp(args[1], "~", \
 			2) == 0)
 	{
-		path = env_find_value(data->env, "HOME", true);
+		path = env_find_value(data->env, "HOME");
 		if (!path || *path == '\0' || is_space(*path))
 			return (errmsg_cmd("cd", NULL, "HOME not set", EXIT_FAILURE));
 		return (!change_dir(data, path));
 	}
-	if (args[2])
-		return (errmsg_cmd("cd", NULL, "too many arguments", EXIT_FAILURE));
 	if (ft_strncmp(args[1], "-", 2) == 0)
 	{
-		path = env_find_value(data->env, "OLDPWD", true);
+		path = env_find_value(data->env, "OLDPWD");
 		if (!path)
 			return (errmsg_cmd("cd", NULL, "OLDPWD not set", EXIT_FAILURE));
 		return (!change_dir(data, path));
